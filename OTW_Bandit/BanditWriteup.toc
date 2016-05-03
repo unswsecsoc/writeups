@@ -1,0 +1,99 @@
+\contentsline {section}{\numberline {1}Disclaimer}{2}{section.1}
+\contentsline {section}{\numberline {2}Precursor}{2}{section.2}
+\contentsline {paragraph}{Additional Reading}{2}{section*.1}
+\contentsline {section}{\numberline {3}Solutions}{3}{section.3}
+\contentsline {subsection}{\numberline {3.1}Level 0}{3}{subsection.3.1}
+\contentsline {paragraph}{Goal}{3}{section*.2}
+\contentsline {paragraph}{Solution}{3}{section*.3}
+\contentsline {subsection}{\numberline {3.2}Level 1}{4}{subsection.3.2}
+\contentsline {paragraph}{Goal}{4}{section*.4}
+\contentsline {paragraph}{Solution}{4}{section*.5}
+\contentsline {paragraph}{Additional Reading}{4}{section*.6}
+\contentsline {subsection}{\numberline {3.3}Level 2}{5}{subsection.3.3}
+\contentsline {paragraph}{Goal}{5}{section*.7}
+\contentsline {paragraph}{Solution}{5}{section*.8}
+\contentsline {paragraph}{Additional Reading}{5}{section*.9}
+\contentsline {subsection}{\numberline {3.4}Level 3}{6}{subsection.3.4}
+\contentsline {paragraph}{Goal}{6}{section*.10}
+\contentsline {paragraph}{Solution}{6}{section*.11}
+\contentsline {paragraph}{Additional Reading}{6}{section*.12}
+\contentsline {subsection}{\numberline {3.5}Level 4}{6}{subsection.3.5}
+\contentsline {paragraph}{Goal}{6}{section*.13}
+\contentsline {paragraph}{Solution}{6}{section*.14}
+\contentsline {subsection}{\numberline {3.6}Level 5}{7}{subsection.3.6}
+\contentsline {paragraph}{Goal}{7}{section*.15}
+\contentsline {paragraph}{Solution}{7}{section*.16}
+\contentsline {subsection}{\numberline {3.7}Level 6}{7}{subsection.3.7}
+\contentsline {paragraph}{Goal}{7}{section*.17}
+\contentsline {paragraph}{Solution}{7}{section*.18}
+\contentsline {subsection}{\numberline {3.8}Level 7}{8}{subsection.3.8}
+\contentsline {paragraph}{Goal}{8}{section*.19}
+\contentsline {paragraph}{Solution}{8}{section*.20}
+\contentsline {paragraph}{Additional Reading}{8}{section*.21}
+\contentsline {subsection}{\numberline {3.9}Level 8}{8}{subsection.3.9}
+\contentsline {paragraph}{Goal}{8}{section*.22}
+\contentsline {paragraph}{Solution}{8}{section*.23}
+\contentsline {paragraph}{Additional Reading}{8}{section*.24}
+\contentsline {subsection}{\numberline {3.10}Level 9}{9}{subsection.3.10}
+\contentsline {paragraph}{Goal}{9}{section*.25}
+\contentsline {paragraph}{Solution}{9}{section*.26}
+\contentsline {subsection}{\numberline {3.11}Level 10}{9}{subsection.3.11}
+\contentsline {paragraph}{Goal}{9}{section*.27}
+\contentsline {paragraph}{Solution}{9}{section*.28}
+\contentsline {paragraph}{Additional Reading}{9}{section*.29}
+\contentsline {subsection}{\numberline {3.12}Level 11}{9}{subsection.3.12}
+\contentsline {paragraph}{Goal}{9}{section*.30}
+\contentsline {paragraph}{Solution}{9}{section*.31}
+\contentsline {paragraph}{Additional Reading}{9}{section*.32}
+\contentsline {subsection}{\numberline {3.13}Level 12}{10}{subsection.3.13}
+\contentsline {paragraph}{Goal}{10}{section*.33}
+\contentsline {paragraph}{Solution}{10}{section*.34}
+\contentsline {paragraph}{Additional Reading}{10}{section*.35}
+\contentsline {subsection}{\numberline {3.14}Level 13}{11}{subsection.3.14}
+\contentsline {paragraph}{Goal}{11}{section*.36}
+\contentsline {paragraph}{Solution}{11}{section*.37}
+\contentsline {paragraph}{Additional Reading}{11}{section*.38}
+\contentsline {subsection}{\numberline {3.15}Level 14}{12}{subsection.3.15}
+\contentsline {paragraph}{Goal}{12}{section*.39}
+\contentsline {paragraph}{Solution}{12}{section*.40}
+\contentsline {paragraph}{Additional Reading}{12}{section*.41}
+\contentsline {subsection}{\numberline {3.16}Level 15}{12}{subsection.3.16}
+\contentsline {paragraph}{Goal}{12}{section*.42}
+\contentsline {paragraph}{Solution}{12}{section*.43}
+\contentsline {paragraph}{Additional Reading}{12}{section*.44}
+\contentsline {subsection}{\numberline {3.17}Level 16}{13}{subsection.3.17}
+\contentsline {paragraph}{Goal}{13}{section*.45}
+\contentsline {paragraph}{Solution}{13}{section*.46}
+\contentsline {paragraph}{Additional Reading}{14}{section*.47}
+\contentsline {subsection}{\numberline {3.18}Level 17}{15}{subsection.3.18}
+\contentsline {paragraph}{Goal}{15}{section*.48}
+\contentsline {paragraph}{Solution}{15}{section*.49}
+\contentsline {paragraph}{Additional Reading}{15}{section*.50}
+\contentsline {subsection}{\numberline {3.19}Level 18}{15}{subsection.3.19}
+\contentsline {paragraph}{Goal}{15}{section*.51}
+\contentsline {paragraph}{Solution}{15}{section*.52}
+\contentsline {paragraph}{Additional Reading}{15}{section*.53}
+\contentsline {subsection}{\numberline {3.20}Level 19}{16}{subsection.3.20}
+\contentsline {paragraph}{Goal}{16}{section*.54}
+\contentsline {paragraph}{Solution}{16}{section*.55}
+\contentsline {paragraph}{Additional Reading}{16}{section*.56}
+\contentsline {subsection}{\numberline {3.21}Level 20}{16}{subsection.3.21}
+\contentsline {paragraph}{Goal}{16}{section*.57}
+\contentsline {paragraph}{Solution}{16}{section*.58}
+\contentsline {subsection}{\numberline {3.22}Level 21}{17}{subsection.3.22}
+\contentsline {paragraph}{Goal}{17}{section*.59}
+\contentsline {paragraph}{Solution}{17}{section*.60}
+\contentsline {paragraph}{Additional Reading}{17}{section*.61}
+\contentsline {subsection}{\numberline {3.23}Level 22}{18}{subsection.3.23}
+\contentsline {paragraph}{Goal}{18}{section*.62}
+\contentsline {paragraph}{Solution}{18}{section*.63}
+\contentsline {subsection}{\numberline {3.24}Level 23}{19}{subsection.3.24}
+\contentsline {paragraph}{Goal}{19}{section*.64}
+\contentsline {paragraph}{Solution}{19}{section*.65}
+\contentsline {subsection}{\numberline {3.25}Level 24}{20}{subsection.3.25}
+\contentsline {paragraph}{Goal}{20}{section*.66}
+\contentsline {paragraph}{Solution}{20}{section*.67}
+\contentsline {paragraph}{Additional Reading}{20}{section*.68}
+\contentsline {subsection}{\numberline {3.26}Level 25}{21}{subsection.3.26}
+\contentsline {paragraph}{Goal}{21}{section*.69}
+\contentsline {paragraph}{Solution}{21}{section*.70}

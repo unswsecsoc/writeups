@@ -1,0 +1,1008 @@
+% BanditWriteup.tex
+%
+% A simple writeup for OverTheWire's 'Bandit' wargame.
+% http://overthewire.org/wargames/bandit/
+%
+% Written with love by Clancy Rye on the 11th of March 2016 on behalf
+% of the UNSW Security Society.
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass[11pt]{article}
+\usepackage[margin=2cm]{geometry} % Required to control margin geometry
+\usepackage{fancyhdr}             % Required for custom headers and footers
+\usepackage{lastpage}             % Required to determine last page for footer
+\usepackage{tocloft}              % Required to dotfill contents page
+\usepackage{hyperref}             % Required to create hyperlinks from contents page
+\usepackage{titlesec}             % Required to nest table of contents 4 levels deep
+\usepackage{enumitem}             % Required to nest table of contents 4 levels deep
+\usepackage{solarized-dark}       % Required for beautiful code snippets
+\usepackage{graphics}
+\usepackage{textcomp}
+% Set up the headers and footers
+\pagestyle{fancy}
+\fancyhf{}	
+
+\renewcommand\footrulewidth{0.4pt}                       % Size of footer rule
+\renewcommand\headrulewidth{0pt}                         % Size of header rule
+\rfoot{Page \thepage \hspace{1pt} of \pageref{LastPage}} % Page x of y footer
+
+% Dotfill table of contents
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}       
+
+% Define commands
+\newcommand{\HRule}{\rule{\linewidth}{0.2mm}}               % Make macro for ruling lines
+\newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage} % For paragraph to bottom of page
+
+% Configure hyperlink properties
+\hypersetup{                                            
+    colorlinks, 
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\makeatletter
+\renewcommand{\paragraph}{%
+  \@startsection{paragraph}{4}%
+  {\z@}{2.0ex \@plus 1ex \@minus .2ex}{-1em}%
+  {\normalfont\normalsize\bfseries}%
+}
+\makeatother
+
+\setlength{\parindent}{0pt}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE                                          
+%----------------------------------------------------------------------------------------
+\begin{document}
+\begin{titlepage}
+\center	
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE - HEADING                                
+%----------------------------------------------------------------------------------------
+%\textsc{\LARGE UNSW Security Society}\\[1.5cm]           % Name of institution
+
+\vspace*{2cm}
+\includegraphics{secsoc-logobanner.png}
+\vspace*{1.5cm}
+
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE - TITLE                                  
+%----------------------------------------------------------------------------------------
+\HRule \\[0.4cm]
+\textsc{\Large Wargame Writeup: 01}\\[0.5cm]             % Major heading EG. course name
+\textsc{\large OverTheWire Bandit - How2Linux}\\[0.5cm]  % Minor heading EG. course title
+\HRule \\[2.5cm]    
+
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE - LOGO 
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE - AUTHOR
+%----------------------------------------------------------------------------------------
+
+\begin{bottompar}                % Anchor at the bottom of the page
+\begin{minipage}{0.4\textwidth}  % Use minipage to take 40% of screen and flush left
+\begin{flushleft} \large
+%\emph{Author:}\\
+%Clancy Rye                      % Author name
+\end{flushleft}
+\end{minipage}
+~                                % Don't remove this! Not a typo!
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large        % Use a minipage to flush the other 40% to the right
+%\emph{On behalf of:} \\
+%UNSW SecSoc                     % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[1cm]            % End minipage and add spacing below authors
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE - DATE
+%----------------------------------------------------------------------------------------
+
+{\large \today}                  % The date right now
+\end{bottompar}
+\vfill                           % Fill the rest of the page with whitespace
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%   TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+\tableofcontents                % Insert ToC
+\thispagestyle{empty}           % Do not render a header/footer for this page.
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   DISCLAIMER
+%----------------------------------------------------------------------------------------
+\section{Disclaimer}
+This writeup was created by Clancy Rye on behalf of the UNSW Security Society and is licensed
+under a \href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License}.\\
+
+Please be responsible with this writeup and use your newfound powers for good and not evil. ;)\\
+If you appreciate this resource, please consider supporting us by coming along to our events!\\
+
+Note that like with many problems, there are also multiple ways of solving the challenges in this wargame. This writeup
+will likely only cover a single way to solve a problem, but I may add alternatives if I'm feeling spicy.\\
+
+As this wargame is intended for beginners, I'll try to keep my solutions as simple and easy to understand as possible. If you are a more experienced hax0r who knows how to drive Linux, you might want to skip this writeup to avoid having an aneurysm.\footnote{UNSW SecSoc will not be held accountable for any aneurysms caused by this writeup.}\\
+
+Learning how to find information and read documentation is an invaluable skill, Google and man pages are your friends.
+As such, \textbf{it is highly encouraged that you attempt to do all of the challenges before you read this writeup} - getting spoonfed won't help you learn.\\
+Kthnx.\\
+
+\medskip
+\noindent
+Happy hacking!
+
+%----------------------------------------------------------------------------------------
+%   PRECURSOR
+%----------------------------------------------------------------------------------------
+\section{Precursor}
+The goal of this wargame is to complete the final level, level 26. 
+Each level has a password in it - this password is used to progress to the next level.
+Thus to complete this wargame, you must complete level 26 and every level preceding it.\\
+
+Levels are accessible via ssh, where user \textit{bandit1 is level 1, bandit2 is level 2, etc}.
+You begin the game at level 0.\\
+
+Before starting, we've got to first log into the game using SSH. The host to which you need to connect is \href{bandit.labs.overthewire.org}{\textbf{bandit.labs.overthewire.org}}. The username is \textbf{bandit0} and the password is \textbf{bandit0}.
+
+\noindent
+To achieve this, log in with ssh:
+\begin{lstlisting}
+	crye@Rapier:~| ssh bandit0@bandit.labs.overthewire.org
+\end{lstlisting}
+When prompted for a password simply enter bandit0, as provided for us above.\\
+Now we're ready to begin the game and hack some planets.
+
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{http://en.wikipedia.org/wiki/Secure_Shell}{Secure Shell (SSH) on Wikipedia}.
+\item \href{http://www.wikihow.com/Use-SSH}{How to use SSH on wikiHow}.
+\end{itemize}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS
+%----------------------------------------------------------------------------------------
+\section{Solutions}
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 0
+%----------------------------------------------------------------------------------------
+\subsection{Level 0}
+\paragraph{Goal}
+The password for the next level is stored in a file called `\textbf{readme}' located in the home directory. 
+
+\paragraph{Solution}
+After we've ssh'd into the server, by default our current working directory will be the home folder of the user. Conveniently this is also where the password file is stored. We can use `ls' to list the directory contents so we can double check that the readme file is there.
+\begin{lstlisting}
+	bandit0@melinda:~$ ls
+	readme
+\end{lstlisting}
+
+To get to the next level, print out the contents of readme to extract the password. 
+\begin{lstlisting}
+ 	bandit0@melinda:~$ cat readme 
+ 	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\newpage
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 1
+%----------------------------------------------------------------------------------------
+\subsection{Level 1}
+\paragraph{Goal}
+The password for the next level is stored in a file called `\textbf{-}' located in the home directory.
+
+\paragraph{Solution}
+Similarly to the last level, we're required to print the contents of a file to extract the password for the next level. However, in this case we're unable to cat the file as we did in the prior level.
+\begin{lstlisting}
+	bandit1@melinda:~$ cat -  
+	IsThereAnEchoInHere?
+	IsThereAnEchoInHere?
+\end{lstlisting}
+This is because `-' is an alias for standard input, so by typing `cat -', we're telling cat to output whatever comes in through stdin. (In this case, you can see I've typed `IsThereAnEchoInHere?' and it's been printed back out via cat.)\\
+
+In order to allow cat to understand that we're talking about a file rather than stdin, we need to specify the full file path.
+\begin{lstlisting}
+	bandit1@melinda:~$ cat /home/bandit1/-
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+Alternatively, to quickly reference the home directory, we can use `$\sim$'. In Bash, `$\sim$' expands to the current user's home directory, so the following is equivalent to the above.
+\begin{lstlisting}
+	bandit1@melinda:~$ cat ~/-
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+Another useful thing to know is that you can quickly reference the current working directory (where your shell is right now) with `.'. As our shell was located in the home directory after we ssh'd in, we could have also typed.
+\begin{lstlisting}
+	bandit1@melinda:~$ cat ./-
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+Keep these in mind as they're \textit{incredibly} useful and will save you \textit{a lot} of time. I will be using them extensibly.
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://www.google.com/search?q=dashed+filename}{Google Search for "dashed filename"}.
+\item \href{http://tldp.org/LDP/abs/html/special-chars.html}{Advanced Bash-scripting Guide - Chapter 3 - Special Characters}.
+\end{itemize}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 2
+%----------------------------------------------------------------------------------------
+\subsection{Level 2}
+\paragraph{Goal}
+The password for the next level is stored in a file called `\textbf{spaces in this filename}' located in the home directory.
+\paragraph{Solution}
+Yet again we're required to print the contents of a file to extract the password for the next level.
+Similarly to previous levels, there's another spicy twist which prevents us from simply typing.
+\begin{lstlisting}
+	bandit2@melinda:~$ cat spaces in this filename    
+	cat: spaces: No such file or directory
+	cat: in: No such file or directory
+	cat: this: No such file or directory
+	cat: filename: No such file or directory
+\end{lstlisting}
+This is because command arguments are delimited by spaces in Linux. As cat will print any argument given to it to stdout, cat is interpretting each word in `cat spaces in this filename' as a different argument, thus is trying to print files `spaces', `in', `this', `filename'.\\
+
+In order to allow cat to know that we're referring to a file with spaces in it rather than multiple files, we need to `escape' the spaces by placing
+a backslash in front of them. This explicitly outlines that you are referring to a space character rather than delimiting your arguments.
+\begin{lstlisting}
+	bandit2@melinda:~$ cat spaces\ in\ this\ filename
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+Alternatively, we could wrap the file with quotes to ensure it's processed as a single argument.
+\begin{lstlisting}
+	bandit2@melinda:~$ cat "spaces in this filename" 
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://www.google.com/search?q=spaces+in+filename}{Google Search for "spaces in filename"}.
+\item \href{https://www.youtube.com/watch?v=oHg5SJYRHA0}{Important Bash Tricks}.
+\end{itemize}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 3
+%----------------------------------------------------------------------------------------
+\subsection{Level 3}
+\paragraph{Goal}
+The password for the next level is stored in a hidden file in the `\textbf{inhere}' directory.
+\paragraph{Solution}
+To complete this we need to navigate to the `inhere' directory from the home directory and then cat the file. However, as the file is hidden, we have to add an additional argument to ls to discover it's filename.
+\begin{lstlisting}
+	bandit3@melinda:~$ ls
+	inhere
+	bandit3@melinda:~$ cd inhere/
+	bandit3@melinda:~/inhere$ ls -a
+	.  ..  .hidden
+	bandit3@melinda:~/inhere$ cat .hidden 
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} The `-a' argument in the above `ls -a' tells ls to not ignore hidden files.\\
+Additionally, in most Linux distros, hidden files are prefixed with a `.'. {\tiny{(However it is possible to have hidden files that are not!)}}
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{http://www.linfo.org/hidden_file.html}{More on hidden files}.
+\item \href{http://man7.org/linux/man-pages/man1/ls.1.html}{Man page for ls}.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 4
+%----------------------------------------------------------------------------------------
+\subsection{Level 4}
+\paragraph{Goal}
+The password for the next level is stored in the only human-readable file in the `\textbf{inhere}' directory.
+\paragraph{Solution}
+This level can be completed by navigating to the `inhere' directory and running `file' on every file in the directory to determine what type they are. As there is only one file that is ASCII text, it is clear that it's our password. 
+\begin{lstlisting}
+	bandit4@melinda:~$ cd inhere/
+	bandit4@melinda:~/inhere$ file ./*
+	./-file00: data
+	./-file01: data
+	./-file02: data
+	./-file03: data
+	./-file04: data
+	./-file05: data
+	./-file06: data
+	./-file07: ASCII text
+	./-file08: data
+	./-file09: data
+	bandit4@melinda:~/inhere$ cat ./-file07
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} `*' in Bash is a special `wildcard' character which means 'anything'. This means that the `./*' in the above `file ./*' refers to every file in the current working directory. 
+\newpage
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 5
+%----------------------------------------------------------------------------------------
+\subsection{Level 5}
+\paragraph{Goal}
+The password for the next level is stored in a file somewhere under the `\textbf{inhere}' directory and has all of the following properties: - human-readable - 1033 bytes in size - not executable.
+\paragraph{Solution}
+Here we can see there are a bunch of junk folders to obfuscate where the file is stored. Rather than manually checking them, run a find command on files of size 1033.
+\begin{lstlisting}
+	bandit5@melinda:~$ cd inhere/
+	bandit5@melinda:~/inhere$ ls                         
+	maybehere00  maybehere02  maybehere04  maybehere06  maybehere08  maybehere10  maybehere12  maybehere14  maybehere16  maybehere18
+	maybehere01  maybehere03  maybehere05  maybehere07  maybehere09  maybehere11  maybehere13  maybehere15  maybehere17  maybehere19
+	bandit5@melinda:~/inhere$ find ./* -size 1033c -readable ! -perm /111
+	./maybehere07/.file2
+	bandit5@melinda:~/inhere$ cat maybehere07/.file2
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} If you didn't understand what all of the flags in the above find command meant, now would be a great time to practice using man. You can view a manual page for find by typing `man find'. If for example you wanted to find out more about the -size argument because you didn't understand what the `1033c' meant, you could search for it by typing `/-size' whilst in the man page. You can press q to exit a man page.
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 6
+%----------------------------------------------------------------------------------------
+\subsection{Level 6}
+\paragraph{Goal}
+The password for the next level is stored \textbf{somewhere on the server} and has all of the following properties: - owned by user bandit7 - owned by group bandit6 - 33 bytes in size.
+\paragraph{Solution}
+This level is an extension on the previous level in that we have a couple more attributes to satisfy and we are no longer artificially confined to the home folder. Running a quick find command finds the password file quite nicely.
+\begin{lstlisting}
+	bandit6@melinda:~$ find / -size 33c -group bandit6 -user bandit7 2>/dev/null
+	/var/lib/dpkg/info/bandit7.password
+	bandit6@melinda:~$ cat /var/lib/dpkg/info/bandit7.password
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} The `2\textgreater/dev/null' part of the find command is an example of something called `piping'. In this particular instance, I am redirecting or `piping' the output of standard error (stderr) to /dev/null, which is a special device that discards information given to it. If I did not pipe stderr to /dev/null, the screen would be full of permission errors as the find command attempted to look in locations I did not have permission to access.\\
+
+This is because I'm running find from the `root' (`/') of the filesystem. If you're a Windows user, it is similar to running find on C:/ - you're going to be trying to poke around in a lot of places you're not authenticated to access as a regular user.
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 7
+%----------------------------------------------------------------------------------------
+\subsection{Level 7}
+\paragraph{Goal}
+The password for the next level is stored in the file \textbf{`data.txt'} next to the word \textbf{`millionth'}.
+\paragraph{Solution}
+This level can be quickly solved by running a grep for `millionth' on data.txt.
+\begin{lstlisting}
+	bandit7@melinda:~$ grep "millionth" data.txt 
+	millionth	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://www.howtoforge.com/tutorial/linux-grep-command/}{Using grep in shell}.
+\item \href{https://regex101.com/}{Interative regex website with explanation}.
+\end{itemize}
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 8
+%----------------------------------------------------------------------------------------
+\subsection{Level 8}
+\paragraph{Goal}
+The password for the next level is stored in the file \textbf{`data.txt'} and is \textbf{the only line of text that occurs only once}.
+\paragraph{Solution}
+To find the only line of text that occurs only once, sort the file alphabetically and pipe it into uniq -u to find lines that appear only once.
+\begin{lstlisting}
+	bandit8@melinda:~$ sort data.txt | uniq -u
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} Due to how uniq works, it is imperative that it receives sorted data, otherwise it won't function correctly! Think about it as uniq `collapsing' down the same lines on top of each other - they need to be grouped in order to squash them together without having anything else inbetween them.\\
+
+You may have noticed I used the words `pipe' in the solution, even though there's no `\textgreater' sign. I am still using piping, it's just in a different context. In this example, I'm piping the output of one command to the input of another. (Forming a pipeline or chain between commands.) If this is unfamiliar to you, I highly suggest practicing it, as it is an incredibly powerful tool and will be widely used.
+
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{http://www.westwind.com/reference/os-x/commandline/pipes.html}{The unix commandline: pipes and redirects}.
+\end{itemize}
+\newpage
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 9
+%----------------------------------------------------------------------------------------
+\subsection{Level 9}
+\paragraph{Goal}
+The password for the next level is stored in the file \textbf{`data.txt'} in one of the few human-readable strings, beginning with several `=' characters.
+\paragraph{Solution}
+As we're going to be searching a file consisting of both binary data and strings, run strings on the file to find only the strings (stripping out the irrelevant binary) then run a grep for lines that start one or more `='.
+\begin{lstlisting}
+	bandit9@melinda:~$ strings data.txt | grep -E "^=+"
+	========== password
+	========== ism
+	========== XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} If you're unfamiliar with regular expressions (regex), you might be a little confused about the search pattern we're using for grep. In regex, a `\textasciicircum' denotes that the following pattern is at the start of the line, and the suffix `+' means that there are one or more occurences of that pattern. In this case, the regex `\textasciicircum=+' translates to something like `match any line beginning with one or more `=' characters'. I also highly recommend practise with regex, as it's a very powerful tool.
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 10
+%----------------------------------------------------------------------------------------
+\subsection{Level 10}
+\paragraph{Goal}
+The password for the next level is stored in the file \textbf{`data.txt'}, which contains base64 encoded data.
+\paragraph{Solution}
+As the password is base64 encoded, we simply decode it with base64.
+\begin{lstlisting}
+	bandit10@melinda:~$ base64 -d data.txt 
+	The password is XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} Base64 is an encoding scheme commonly used in web applications, you'll likely become very familiar with it.
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{http://en.wikipedia.org/wiki/Base64}{Base64 on Wikipedia}.
+\item \href{http://stackoverflow.com/questions/201479/what-is-base-64-encoding-used-for}{What is Base64 used for?}
+\end{itemize}
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 11
+%----------------------------------------------------------------------------------------
+\subsection{Level 11}
+\paragraph{Goal}
+The password for the next level is stored in the file \textbf{`data.txt'}, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions.
+\paragraph{Solution}
+This is an example of the \href{https://en.wikipedia.org/wiki/ROT13}{infamous `rot13' substitution cipher}, where each character is replaced with the character 13 places after it. (Place is given by n + 13 \% 26). To reverse it we just transpose each character in the set a-z by 13. 
+\begin{lstlisting}
+	bandit11@melinda:~$ cat data.txt | tr a-zA-Z n-za-mN-ZA-M
+	The password is XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{http://man7.org/linux/man-pages/man1/tr.1.html}{Man page for tr}.
+\end{itemize}
+\newpage
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 12
+%----------------------------------------------------------------------------------------
+\subsection{Level 12}
+\paragraph{Goal}
+The password for the next level is stored in the file \textbf{`data.txt'}, which is a hexdump of a file that has been repeatedly compressed. 
+\paragraph{Solution}
+This level requires you to reverse a hexdump and repeatedly uncompress a file which has been compressed many times. We can unravel the file by repeatedly running file and the appropriate unzipping commands until we hit the password. 
+\begin{lstlisting}
+	bandit12@melinda:~$ cd /tmp 
+	bandit12@melinda:/tmp$ cp ~/data.txt .
+	bandit12@melinda:/tmp$ xxd -r data.txt > data2.file
+	bandit12@melinda:/tmp$ file data2.file
+	data2.file: gzip compressed data, was "data2.bin", from Unix, last modified: Fri Nov 14 10:32:20 2014, max compression
+	bandit12@melinda:/tmp$ zcat -d data2.file > data3.file
+	bandit12@melinda:/tmp$ file data3.file
+	data3.file: bzip2 compressed data, block size = 900k
+	bandit12@melinda:/tmp$ bzip2 -d data3.file
+	bzip2: Can't guess original name for data3.file -- using data3.file.out
+	bandit12@melinda:/tmp$ file data3.file.out
+	data3.file.out: gzip compressed data, was "data4.bin", from Unix, last modified: Fri Nov 14 10:32:20 2014, max compression
+	bandit12@melinda:/tmp$ zcat -dd data3.file.out > data4
+	bandit12@melinda:/tmp$ file data4
+	data4: POSIX tar archive (GNU)
+	bandit12@melinda:/tmp$ tar xvf data4
+	data5.bin
+	bandit12@melinda:/tmp$ file data5.bin
+	data5.bin: POSIX tar archive (GNU)
+	bandit12@melinda:/tmp$ tar xvf data5.bin
+	data6.bin
+	bandit12@melinda:/tmp$ file data6.bin
+	data6.bin: bzip2 compressed data, block size = 900k
+	bandit12@melinda:/tmp$ bzip2 -d data6.bin
+	bzip2: Can't guess original name for data6.bin -- using data6.bin.out
+	bandit12@melinda:/tmp$ file data6.bin.out
+	data6.bin.out: POSIX tar archive (GNU)
+	bandit12@melinda:/tmp$ tar xvf data6.bin.out
+	data8.bin
+	bandit12@melinda:/tmp$ file data8.bin
+	data8.bin: gzip compressed data, was "data9.bin", from Unix, last modified: Fri Nov 14 10:32:20 2014, max compression
+	bandit12@melinda:/tmp$ zcat -d data8.bin
+	The password is XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://en.wikipedia.org/wiki/Hex_dump}{Hex dump on Wikiapedia}.
+\end{itemize}
+\newpage
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 13
+%----------------------------------------------------------------------------------------
+\subsection{Level 13}
+\paragraph{Goal}
+The password for the next level is stored in \textbf{`/etc/bandit\_pass/bandit14' and can only be read by user bandit14}. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level.
+\paragraph{Solution}
+For this level, we're given a private SSH key which can be used to authenticate as bandit14. Simply ssh into the localhost as bandit14 using the key, then cat the password file.
+\begin{lstlisting}
+	bandit13@melinda:~$ ls
+	sshkey.private
+	bandit13@melinda:~$ cat sshkey.private 
+	-----BEGIN RSA PRIVATE KEY-----
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	-----END RSA PRIVATE KEY-----
+	bandit13@melinda:~$ ssh -i sshkey.private bandit14@localhost
+	bandit14@melinda:~$ cat /etc/bandit_pass/bandit14
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://help.ubuntu.com/community/SSH/OpenSSH/Keys}{SSH/OpenSSH/Keys}.
+\end{itemize}
+\newpage
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 14
+%----------------------------------------------------------------------------------------
+\subsection{Level 14}
+\paragraph{Goal}
+The password for the next level can be retrieved by submitting the password of the current level to \textbf{port 30000 on localhost}.
+\paragraph{Solution}
+Pretty straightforward. Use netcat to connect to the localhost (127.0.0.1), port 30000 and send the key for current level using it. 
+\begin{lstlisting}
+	bandit14@melinda:~$ cat /etc/bandit_pass/bandit14 | nc -v 127.0.0.1 30000
+	Connection to 127.0.0.1 30000 port [tcp/*] succeeded!
+	Correct!
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} It's important to understand this question. Networking is a big part of computing - learn how to use netcat properly as it is your bread
+and butter. In a lot of cases it's your stock standard method of popping a reverse shell on a target machine.
+
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://www.youtube.com/watch?v=7\_LPdttKXPc}{TL;DR How Do I Internet}.
+\item \href{https://en.wikipedia.org/wiki/IP\_address}{IP address on Wikiapedia}.
+\item \href{http://computer.howstuffworks.com/web-server5.htm}{IP addresses}.
+\item \href{https://en.wikipedia.org/wiki/Localhost}{Localhost on Wikiapedia}.
+\item \href{https://en.wikipedia.org/wiki/Localhost}{Ports}.
+\item \href{https://en.wikipedia.org/wiki/Port\_\%28computer\_networking\%29}{Ports on Wikiapedia}.
+\item \href{http://www.binarytides.com/netcat-tutorial-for-beginners/}{Netcat tutorial for beginners}.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 15
+%----------------------------------------------------------------------------------------
+\subsection{Level 15}
+\paragraph{Goal}
+The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost using SSL encryption.
+\paragraph{Solution}
+This is pretty much identical to the above, except we're now using SSL! Groovy.
+\begin{lstlisting}
+	bandit15@melinda:~$ cat /etc/bandit_pass/bandit15 | openssl s_client -connect 127.0.0.1:30001 -quiet
+	depth=0 CN = li190-250.members.linode.com
+	verify error:num=18:self signed certificate
+	verify return:1
+	depth=0 CN = li190-250.members.linode.com
+	verify return:1
+	Correct!
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+	read:errno=0
+\end{lstlisting}
+
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://en.wikipedia.org/wiki/Secure\_Socket\_Layer}{Secure Socket Layer on Wikiapedia}.
+\item \href{https://www.openssl.org/docs/manmaster/apps/s\_client.html}{OpenSSL man page}.
+\end{itemize}
+
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 16
+%----------------------------------------------------------------------------------------
+\subsection{Level 16}
+\paragraph{Goal}
+The credentials for the next level can be retrieved by submitting the password of the current level to \textbf{a port on localhost in the range 31000 to 32000}. There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.
+\paragraph{Solution}
+First find out which of these ports have a server listening on them. Then find out which of those speak SSL and which don’t. To do this we can use an nmap service scan on the port range 31000-32000 on the localhost. 
+\begin{lstlisting}
+	bandit15@melinda:~$ nmap -sV -p 31000-32000 127.0.0.1
+
+	Starting Nmap 6.40 ( http://nmap.org ) at 2016-03-11 12:16 UTC
+	Stats: 0:00:36 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+	Service scan Timing: About 40.00% done; ETC: 12:17 (0:00:54 remaining)
+	Stats: 0:00:41 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+	Service scan Timing: About 40.00% done; ETC: 12:18 (0:01:02 remaining)
+	Nmap scan report for localhost (127.0.0.1)
+	Host is up (0.00094s latency).
+	Not shown: 996 closed ports
+	PORT      STATE SERVICE VERSION
+	31046/tcp open  echo
+	31518/tcp open  msdtc   Microsoft Distributed Transaction Coordinator (error)
+	31691/tcp open  echo
+	31790/tcp open  msdtc   Microsoft Distributed Transaction Coordinator (error)
+	31960/tcp open  echo
+	Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+	Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+	Nmap done: 1 IP address (1 host up) scanned in 41.32 seconds
+
+	bandit16@melinda:~$ cat /etc/bandit_pass/bandit16 | openssl s_client -connect 127.0.0.1:31518 -quiet
+	depth=0 CN = li190-250.members.linode.com
+	verify error:num=18:self signed certificate
+	verify return:1
+	depth=0 CN = li190-250.members.linode.com
+	verify return:1
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	^C
+	bandit16@melinda:~$ cat /etc/bandit_pass/bandit16 | openssl s_client -connect 127.0.0.1:31790 -quiet
+	depth=0 CN = li190-250.members.linode.com
+	verify error:num=18:self signed certificate
+	verify return:1
+	depth=0 CN = li190-250.members.linode.com
+	verify return:1
+	Correct!
+	-----BEGIN RSA PRIVATE KEY-----
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	-----END RSA PRIVATE KEY-----
+
+	read:errno=0
+	bandit16@melinda:~$ vi /tmp/HeresAPrivateKeyIPreparedEarlier
+	bandit16@melinda:~$ chmod 600 /tmp/HeresAPrivateKeyIPreparedEarlier
+	bandit16@melinda:~$ ssh -i /tmp/HeresAPrivateKeyIPreparedEarlier bandit17@127.0.0.1
+	bandit17@melinda:~$
+\end{lstlisting}
+From our portscan, 31046, 31691 and 31860 are all out, as they are clearly echo. This leaves either 31518 and 31960. Choosing the first and sending
+the current user password results in nothing being sent back, but the second returns an RSA private key. Saving it locally and changing it to have valid permissions (ssh private keys must NOT be accessible by others), we can use it to ssh into the next level.\\
+\textbf{Note:} It's important to understand how to use nmap, as it's a very powerful and useful tool!
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://en.wikipedia.org/wiki/Port\_scanner}{Port scanner on Wikiapedia}.
+\item \href{https://nmap.org/book/osdetect-usage.html}{Using nmap}.
+\end{itemize}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 17
+%----------------------------------------------------------------------------------------
+\subsection{Level 17}
+\paragraph{Goal}
+There are 2 files in the homedirectory: \textbf{`passwords.old'} and \textbf{`passwords.new'}. The password for the next level is in passwords.new and \textbf{is the only line that has been changed between passwords.old and passwords.new}.
+\paragraph{Solution}
+To find the changes between the files, run diff on them and observe the additions and subtractions.
+\begin{lstlisting}
+bandit17@melinda:~$ diff passwords.old passwords.new
+42c42
+< XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+---
+> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\textbf{Note:} If you're trying to log into level 18 with this password and you get kicked out with a message 'Byebye!', don't sweat - it's part of level 19.
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{http://www.markusbe.com/2009/12/how-to-read-a-patch-or-diff-and-understand-its-structure-to-apply-it-manually/}{How to read diffs}.
+\item \href{https://en.wikipedia.org/wiki/Diff\_utility}{Diff on Wikiapedia}.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 18
+%----------------------------------------------------------------------------------------
+\subsection{Level 18}
+\paragraph{Goal}
+The password for the next level is stored in a file \textbf{`readme'} in the home directory. Unfortunately, someone has modified \textbf{.bashrc} to log you out when you log in with SSH.
+\paragraph{Solution}
+As the bashrc file has been modified to log you out, we can bypass this roadblock by simply getting ssh to run `cat readme' as soon as it logs on, before bash is even started.
+\begin{lstlisting}
+	crye@Rapier:~| ssh bandit18@bandit.labs.overthewire.org cat readme
+	bandit18@bandit.labs.overthewire.org's password: 
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+Alternatively, we could also pop a shell by simply running /bin/sh on login.
+\begin{lstlisting}
+	crye@Rapier:~| ssh bandit18@bandit.labs.overthewire.org /bin/sh
+	bandit18@bandit.labs.overthewire.org's password: 
+	ls
+	readme
+	cat readme
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+Somewhat humorously, if you're lucky you can ctrl-c before the part of the .bashrc that logs you out for the same effect. It's very finnicky on the timing, though.
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{http://unix.stackexchange.com/questions/129143/what-is-the-purpose-of-bashrc-and-how-does-it-work}{What is a .bashrc file and how does it work?}
+\end{itemize}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 19
+%----------------------------------------------------------------------------------------
+\subsection{Level 19}
+\paragraph{Goal}
+To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit\_pass), after you have used to setuid binary.
+\paragraph{Solution}
+The setuid binary allows us to run commands as bandit20, as such, we have access to bandit20s password file and can cat it to progress to the next level.
+\begin{lstlisting}
+bandit19@melinda:~$ ./bandit20-do cat /etc/bandit_pass/bandit20
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://en.wikipedia.org/wiki/Setuid}{Setuid on Wikiapedia}.
+\end{itemize}
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 20
+%----------------------------------------------------------------------------------------
+\subsection{Level 20}
+\paragraph{Goal}
+There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). If the password is correct, it will transmit the password for the next level (bandit21).
+\paragraph{Solution}
+For this level, we need to connect to the level twice. Once to start a network daemon to which the setuid will connect and again to run the setuid binary.\\
+
+\textbf{Connection 1}: Set up daemon listening on port 1337 and send old password once setuid binary connects.
+\begin{lstlisting}
+bandit20@melinda:~$ nc -v -l -p 1337
+	Listening on [0.0.0.0] (family 0, port 1337)
+	Connection from [127.0.0.1] port 1337 [tcp/*] accepted (family 2, sport 42006)
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+\end{lstlisting}
+
+\textbf{Connection 2}: Run setuid binary 
+\begin{lstlisting}
+	bandit20@melinda:~$ ./suconnect 1337
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+	Read: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	Password matches, sending next password
+\end{lstlisting}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 21
+%----------------------------------------------------------------------------------------
+\subsection{Level 21}
+\paragraph{Goal}
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in \textbf{/etc/cron.d/} for the configuration and see what command is being executed.
+\paragraph{Solution}
+First navigate to /etc/cron.d and list the cron jobs. Inspecting them reveals a cronjob called cronjob\_bandit22 - which is interesting. Printing the file reveals that the cronjob is executing a script in /usr/bin called cronjob\_bandit22.sh. Following this up and printing out the shell script reveals that the password has been copied to a folder in /tmp/, allowing us to cat the file and retrieve the password for the next level.
+\begin{lstlisting}
+	bandit21@melinda:~$ cd /etc/cron.d
+	bandit21@melinda:/etc/cron.d$ l
+	behemoth4_cleanup  cronjob_bandit23       leviathan5_cleanup    natas-session-toucher  natas25_cleanup~  php5        semtex0-ppc  vortex0
+	cron-apt           cronjob_bandit24       manpage3_resetpw_job  natas-stats            natas26_cleanup   semtex0-32  semtex5      vortex20
+	cronjob_bandit22   cronjob_bandit24_root  melinda-stats         natas25_cleanup        natas27_cleanup   semtex0-64  sysstat
+	bandit21@melinda:/etc/cron.d$ cat cronjob_bandit22
+	* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+	bandit21@melinda:/etc/cron.d$ cat /usr/bin/cronjob_bandit22.sh
+	#!/bin/bash
+	chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+	cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+	bandit21@melinda:/etc/cron.d$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+\end{lstlisting}
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://en.wikipedia.org/wiki/Cron}{Cron on Wikiapedia}.
+\item \href{http://www.unixgeeks.org/security/newbie/unix/cron-1.html}{Intro to cron}.
+\end{itemize}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 22
+%----------------------------------------------------------------------------------------
+\subsection{Level 22}
+\paragraph{Goal}
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in \textbf{/etc/cron.d/} for the configuration and see what command is being executed.
+\paragraph{Solution}
+To solve this, we cd to the cronjob directory and have a look at what's running. We can see there's a file called `cronjob\_bandit23', so we cat it to view its contents. We can see it's running a script at `/usr/bin/cronjob\_bandit23.sh', if we cat the script, we can see that there's some password copying shenanigans going on. If we follow up on this and cat the file the script copies to, we can observe that it prints the password for level 22, our current level. If we modify the whoami component to pretend to be bandit23, it will output the password for bandit23.\\ 
+Humourously we can also use this to get to level 24, but I think this is unintentional. ;)
+\begin{lstlisting}
+	bandit22@melinda:~$ cd /etc/cron.d
+	bandit22@melinda:/etc/cron.d$ l
+	behemoth4_cleanup  cronjob_bandit23       leviathan5_cleanup    natas-session-toucher  natas25_cleanup~  php5        semtex0-ppc  vortex0
+	cron-apt           cronjob_bandit24       manpage3_resetpw_job  natas-stats            natas26_cleanup   semtex0-32  semtex5      vortex20
+	cronjob_bandit22   cronjob_bandit24_root  melinda-stats         natas25_cleanup        natas27_cleanup   semtex0-64  sysstat
+	bandit22@melinda:/etc/cron.d$ cat cronjob_bandit23
+	* * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+	bandit22@melinda:/etc/cron.d$ cat /usr/bin/cronjob_bandit23.sh
+	#!/bin/bash
+
+	myname=$(whoami)
+	mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+	echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+	cat /etc/bandit_pass/$myname > /tmp/$mytarget
+	bandit22@melinda:/etc/cron.d$ cat /tmp/`echo I am user $(whoami) | md5sum | cut -d ' ' -f 1`
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	bandit22@melinda:/etc/cron.d$ cat /tmp/`echo I am user bandit23 | md5sum | cut -d ' ' -f 1`
+	YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+	bandit22@melinda:/etc/cron.d$ cat /tmp/`echo I am user bandit24 | md5sum | cut -d ' ' -f 1`
+	ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+\end{lstlisting}
+\textbf{Note:} Looking at shell scripts written by other people is a very useful skill. The script for this level is intentionally made easy to read. If you are having problems understanding what it does, try executing it to see the debug information it prints.
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 23
+%----------------------------------------------------------------------------------------
+\subsection{Level 23}
+\paragraph{Goal}
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in \textbf{/etc/cron.d/} for the configuration and see what command is being executed.\\
+\textbf{Note:} Keep in mind that your shell script is removed once executed, so you may want to keep a copy around.
+\paragraph{Solution}
+As with our previous cron levels, we cd to the cronjob directory and list the cronjobs. Again, there's a juicy cronjob\_bandit24 to have a look at. Catting this file reveals that the cronjob is running a script which executes and then deletes all scripts in /var/spool/bandit24/. As we know they will be executed by bandit24 or a higher user, we can copy a script in there that will output the contents of his password file to the /tmp/ folder for us to collect. Remember that crons are a time based service, so you might need to wait a minute or so for it to be executed.
+\begin{lstlisting}
+	bandit23@melinda:/etc/cron.d$ l
+	behemoth4_cleanup  cronjob_bandit23       leviathan5_cleanup    natas-session-toucher  natas25_cleanup~  php5        semtex0-ppc  vortex0
+	cron-apt           cronjob_bandit24       manpage3_resetpw_job  natas-stats            natas26_cleanup   semtex0-32  semtex5      vortex20
+	cronjob_bandit22   cronjob_bandit24_root  melinda-stats         natas25_cleanup        natas27_cleanup   semtex0-64  sysstat
+	bandit23@melinda:/etc/cron.d$ cat cronjob_bandit24
+	* * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+	bandit23@melinda:/etc/cron.d$ cat /usr/bin/cronjob_bandit24.sh
+	#!/bin/bash
+
+	myname=$(whoami)
+
+	cd /var/spool/$myname
+	echo "Executing and deleting all scripts in /var/spool/$myname:"
+	for i in * .*;
+	do
+	    if [ "$i" != "." -a "$i" != ".." ];
+	    then
+		echo "Handling $i"
+		timeout -s 9 60 "./$i"
+		rm -f "./$i"
+	    fi
+	done
+	bandit23@melinda:/etc/cron.d$ vim /tmp/roomservice.sh
+	bandit23@melinda:/etc/cron.d$ cat /tmp/roomservice.sh
+	#!/bin/bash
+
+	cat /etc/bandit_pass/bandit24 > /tmp/GiffPassword
+	bandit23@melinda:/etc/cron.d$ chmod 755 /tmp/roomservice.sh
+	bandit23@melinda:/etc/cron.d$ copy /tmp/roomservice.sh /var/spool/bandit24/
+	cat /tmp/GiffPassword
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\end{lstlisting}
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 24
+%----------------------------------------------------------------------------------------
+\subsection{Level 24}
+\paragraph{Goal}
+A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinaties. This is a method called brute-forcing.
+\paragraph{Solution}
+As there's no way for us to know what the secret pin is, we'll have to guess it. Rather than doing it manually, we're going to set up
+a Python script to do it for us. Fortunately there is no rate-limiting, so we are able to send very large amounts of guesses per second.
+\begin{lstlisting}
+	bandit24@melinda:~$ cd /tmp
+	bandit24@melinda:/tmp$ vim PushyStoreClerk.py
+	bandit24@melinda:/tmp$ cat PushyStoreClerk.py
+	#!/usr/bin/python
+
+	import socket
+
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.connect(('localhost', 30002))
+	s.recv(1024)
+
+	for i in range(1111,9999):
+	    print "Trying: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX "+str(i)
+	    s.sendall("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX "+str(i)+"\n")
+	    data = s.recv(1024)
+	    print data
+	bandit24@melinda:/tmp$ chmod 755 PushyStoreClerk.py
+	bandit24@melinda:/tmp$ ./PushyStoreClerk.py
+	Trying: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 1111
+	Wrong! Please enter the correct pincode. Try again.
+
+	Trying: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 1112
+	Wrong! Please enter the correct pincode. Try again.
+
+	Trying: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 1113
+	Wrong! Please enter the correct pincode. Try again.
+
+	...
+
+	Trying: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX YYYY
+	Correct!
+	The password of user bandit25 is ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+\end{lstlisting}
+\paragraph{Additional Reading}
+\begin{itemize}
+\itemsep0em
+\item \href{https://docs.python.org/2.7/howto/sockets.html}{Python 2.7 Socket Programming}.
+\item \href{https://docs.python.org/3.5/howto/sockets.html}{Python 3.5 Socket Programming}.
+\end{itemize}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%   SOLUTIONS - LEVEL 25
+%----------------------------------------------------------------------------------------
+\subsection{Level 25}
+\paragraph{Goal}
+Logging in to bandit26 from bandit25 should be fairly easy... The shell for user bandit26 is not \textbf{/bin/bash}, but something else. Find out what it is, how it works and how to break out of it.
+\paragraph{Solution}
+Logging into bandit26 using the private sshkey reveals that a banner is being printed before the connection is terminated. To inspect further, we can find out what bandit26's login shell is in /etc/passwd. Running a grep on /etc/passwd for `bandit26' reveals that his login shell is something called showtext in /usr/bin/. Inspecting this reveals that it is really a shell script that uses more to print what is presumably the bandit26 ASCII art banner we were observing earlier.\\
+
+This is great news for us, as we can exploit the behaviour of more so that it does not immediately terminate. If we resize our terminal to be less than 5 lines tall (the amount of lines in the bandit26 ascii art), more will only be able to show us part of the text and will allow us to navigate up and down to see the set of the bandit26 ascii art. (Meaning it will stay open and not exit.)\\
+
+However, as we're able to now interact with more, we can abuse it's functionality to gain access a text editor called Vim. If we press v whilst in more, it'll open a Vim session. From here, we can type `:e /etc/bandit\_pass/bandit26' to open bandit26's password file in Vim, allowing us to see what the password is.
+\begin{lstlisting}
+	bandit25@melinda:~$ ls                                       
+	bandit26.sshkey
+	bandit25@melinda:~$ ssh -i bandit26.sshkey bandit26@127.0.0.1
+	  _                     _ _ _   ___   __  
+	 | |                   | (_) | |__ \ / /  
+	 | |__   __ _ _ __   __| |_| |_   ) / /_  
+	 | '_ \ / _` | '_ \ / _` | | __| / / '_ \ 
+	 | |_) | (_| | | | | (_| | | |_ / /| (_) |
+	 |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/ 
+	Connection to 127.0.0.1 closed.
+	bandit25@melinda:~$ grep 'bandit26' /etc/passwd 
+	bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext
+	bandit25@melinda:~$ cat /usr/bin/showtext
+	#!/bin/sh
+
+	more ~/text.txt
+	exit 0
+\end{lstlisting}
+
+\begin{lstlisting}
+	v
+	:e /etc/bandit_pass/bandit26
+	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	~                                                                                 
+	~                                                                                 
+	~                                                                                 
+	~                                                                                 
+	"/etc/bandit_pass/bandit26" [readonly] 1L, 33C                  1,1           All
+\end{lstlisting}
+
+That's all, folks. Grats on clearing Bandit! - C
+\end{document}
