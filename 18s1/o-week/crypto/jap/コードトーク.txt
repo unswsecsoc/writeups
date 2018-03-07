@@ -1,0 +1,13 @@
+コードトーク.txt
+
+Konnichi wa!
+
+Hiro, a UNSW exchange student from Japan, has forgotten how to decode his passphrase to his flag vault! Could you help him out?
+
+== BEGIN CODED PASSPHRASE ==
+FLAG{氷 動物 お金 ともだち 雨 おおさか おかね 雪 どうぶつ 氷 でんしゃ 動物 お金 どうぶつ}
+== END CODED PASSPHRASE ==
+
+Enter your decoded passphrase in this form: FLAG{<passphrase>}, all in uppercase. E.g. if the decoded passphrase was "hello", enter "FLAG{HELLO}"
+
+Note: While actually knowing Japanese might be helpful, you can solve this with Google Translate and a keen mind ;).

@@ -1,0 +1,11 @@
+#form {
+    width: 550px;
+    height: 450px;
+    margin: auto;
+    position: relative;
+}
+.submission{
+    text-align:center;
+    font-weight:bold;
+    margin-top:20px;
+}

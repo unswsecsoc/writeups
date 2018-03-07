@@ -1,0 +1,12 @@
+--2018-03-08 01:50:52--  https://i.imgur.com/J0ZJMaH.gif
+Resolving i.imgur.com (i.imgur.com)... 151.101.80.193
+Connecting to i.imgur.com (i.imgur.com)|151.101.80.193|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 65020 (63K) [image/gif]
+Saving to: 'J0ZJMaH.gif’
+
+     0K .......... .......... .......... .......... .......... 78%  625K 0s
+    50K .......... ...                                        100% 97.1M=0.08s
+
+2018-03-08 01:50:52 (792 KB/s) - 'J0ZJMaH.gif’ saved [65020/65020]
+

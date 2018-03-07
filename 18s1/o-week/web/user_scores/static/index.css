@@ -1,0 +1,22 @@
+.heading {
+  width: 60%;
+  margin-left: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 5%;
+  padding-bottom: 2%;
+  border-bottom: solid #EBEBEB 1px;
+}
+.table {
+  width: 80% !important;
+  margin-left: 10%;
+}
+
+.search-bar {
+  width:60%;
+  margin-left: 20%;
+  display: flex;
+  justify-content: center;
+}

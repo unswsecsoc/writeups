@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Memeeee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="xss.css" />
+    <!-- <script src="main.js"></script> -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script>
+
+    $(function () {
+        let refresh = function () {
+            let data = Cookies.getJSON('data') || [];
+            $('#submissions').empty();
+            for (let datum of data) {
+                let escapedAnimal = datum.animal.replace(/</g,"&lt;").replace(/>/g,"&gt;"); 
+                let escapedURL = datum.url.replace(/</g,"%3c").replace(/>/g,"%3e"); 
+                $('<div class="submission">' + escapedAnimal + "<br>"
+                + "<img width=150 src='" + escapedURL + "'>"
+                + "</div>").appendTo('#submissions');
+            }    
+            if (data.length == 0) {
+                $('#submissions').html("No submissions have been made yet.");
+            }
+            
+        }
+        $('#form').submit(function (event) {
+            let data = Cookies.getJSON('data') || [];
+            Cookies.set('data',data.concat([{
+                animal: $('#animal').val(),
+                url: $('#meme').val() 
+            }]));
+            refresh();
+            event.preventDefault();
+        })
+        refresh();
+    });
+    </script>
+</head>
+
+<body>
+    <form id="form">
+    <h1 id=title>
+        Animal Meme Contest!
+    </h1>
+    <p id=intro>
+        Welcome to the animal meme contest where we decide who's the king of all memes!
+        To enter the competition, simply name your favourite animal and give a link to your favourite meme with that animal!
+        Your goal is simple, to get the crown of the best animal meme!
+    </p>
+    <p id=instruction>
+        If you manage to get this website to alert a "Yay! I just won the best meme!", then the prize is yours!
+    </p>
+    <h4> Rules </h4>
+        <ul>
+        <li> Must have a javascript alert with that exact sentence.</li>
+        <li>The alert must remain there when you refresh the page.</li>
+        </ul>
+        <div class="form-group">
+          <label for="animal">Your Fav Animal:</label>
+          <input type="text" class="form-control" id="animal" pattern='[a-zA-Z ]*'>
+        </div>
+        <div class="form-group">
+          <label for="meme">Link to your fav meme featuring your fav animal:</label>
+          <input type="text" class="form-control" id="meme">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <br>
+        <br>
+        <br>
+        <h4>Existing submissions</h4>
+        <div id='submissions'>
+        </div>
+      
+      </form>
+</body>
+</html>
