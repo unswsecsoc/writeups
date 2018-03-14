@@ -38,11 +38,21 @@ Unlike other challenges. You need to wrap what you found into something like thi
 50
 
 ## Walkthrough
-1. TBD, Bug Vivian about the solution!
+If you didn't regconise the tweaked ritual from the "The Adventure of the Musgrave Ritual", Googling would gave you that clue.
+
+From there, you will find that this story is from 1 out of 12 stories of "The Memoirs of Sherlock Holmes"
+After that all you need to do is to look up corresponding words using the clues in my ritual.
+
+**The sixth from the first** - sixth word from the first story - "The Adventure of the Silver Blaze"
+**Reigate by 2 and by 15** - 2nd and 15th word from "The Adventure of the Reigate Squire"
+**Gloria by 21 and by 4** - 21st and 4th word from "The Adventure of the Gloria Scott"
+**Musgrave by 10 and by 13** - 10th and 13th word from "The Adventure of the Musgrave Ritual"
+**Naval by 27 and by 13** - 27th and 13th of the Naval Treaty
+When you piece all the words you got, you should get the flag!
 
 ## Flag
 `FLAG{IWASFROMTHEPAPERSOFSHERLOCKHOLMESCASES}`
 
-## Other
+## Description
 **It's not a cult if we don't have an official ritual.**
 
