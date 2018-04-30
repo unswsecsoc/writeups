@@ -3,8 +3,8 @@
 ## Flavortext 
 We've split the flag into half and hidden it on our websites, can you find both pieces ?  
 
-https://unswsecurity.com/
-https://suits.org.au/
+https://unswsecurity.com/  
+https://suits.org.au/  
 
 (Final flag should be the combination of both flags, but you already knew that didn't you?)
 
