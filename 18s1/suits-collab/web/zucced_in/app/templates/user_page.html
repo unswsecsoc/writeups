@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block body_contents %}
+
+<div class="user_details">
+	<table class="main">
+		{% if 'Name' in user_details %}	
+			<tr>
+				<td>
+				
+	            	<h2>Welcome {{user_details['Name']}}!</h2> 
+				</td>
+			</tr>
+		{% endif %}
+		<tr>
+			<td class="img_cell" align="center"><img src="{{url_for('static', filename=img_file)}}" class="profile"></td>
+		</tr>
+	</table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block body_contents %}
+<div class="user_details">
+<table class="login">
+	<tr>
+		<td>
+			<h1>Welcome to SafeBook!</h1>
+			{{message}}
+			<div class="container">
+				<form action="/login" method="post">
+			    <label><b>Username</b></label>
+			    <input class="login" type="text" placeholder="Enter Username" name="username" required>
+
+			    <label><b>Password</b></label>
+			    <input class="login" type="password" placeholder="Enter Password" name="password" required>
+			        
+			    <button type="submit" value="Login" style="float:left;width: 40%;display: block;">Login</button>
+			    </form>
+			    <form action="/forgot_password">
+			    <button type="submit" style="float:right;width: 40%;display: block;">Forgot Password</button>
+			    </form>
+		    </div>
+	  </td>
+	</tr>
+</table>
+</div>
+{% endblock %}

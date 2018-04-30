@@ -1,0 +1,9 @@
+This file should not be copied to the image by Docker
+
+Specific setup notes:
+* Need /etc/cjdns in a volume
+* IP is ipv6 in /etc/cjdns/cjdroute.conf
+* Will need to manually add peers to interfaces.UDPInterface[].connectTo in cjdroute.conf
+  * Note that adding multiple peers might mean hyperboria traffic gets routed through you
+  * Should be relatively low traffic anyway
+* Need to `docker run --cap-add=NET_ADMIN --device=/dev/net/tun`

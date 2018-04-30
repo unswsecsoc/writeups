@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Site</title>
+    <!-- Stylesheets -->
+  	<link rel="stylesheet" href="{{url_for('static', filename='bootstrap.css')}}"/>
+  </head>
+  <body>
+    <header class="header">
+      <nav id="navbar-wrapper-main" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/" on>Chat Board</a>
+        <button class="navbar-toggler" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div style="margin: 10%; text-align: center">
+      <h1> Welcome! Please login </h1>
+      <hr>
+      {% if err %}
+      <div class="alert alert-danger">
+        {{err}}
+      </div>
+      {% endif %}
+      <form method="POST">
+        <div style="width: 40%; margin-left: 30%">
+          <input name="username" placeholder="username" type="text" class="form-control">
+        </div>
+        <br>
+        <div style="width: 40%; margin-left: 30%">
+          <input name="password" placeholder="password" type="password" class="form-control">
+        </div>
+        <br>
+        <button name="action" value="login" type="submit" class="btn btn-info"> Login </button>
+        <button name="action" value="create" type="submit" class="btn btn-info"> Register </button>
+      </form>
+    </div>
+  </body>
+</html>

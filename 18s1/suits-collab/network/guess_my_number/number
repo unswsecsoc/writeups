@@ -1,0 +1,10 @@
+#!/bin/sh
+
+read GUESS
+GUESS=`echo "$GUESS" | sed 's/ *//g'`
+ans=637928  # 1 - 1000000
+
+if [ -z $GUESS ]; then echo "Nope" && exit; fi
+if [ $(echo "$GUESS" | egrep -v "^[0-9]*$") ]; then echo "Nope" && exit; fi
+if [ $GUESS -gt 100000000 -o $GUESS -lt 0 ]; then echo "Nope" && exit; fi
+if [ $GUESS -eq $ans ]; then cat /flag; else echo "Nope"; fi

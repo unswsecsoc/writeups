@@ -1,0 +1,202 @@
+body {
+    background-color: #EEE;
+}
+
+.unswtalk_heading {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.unswtalk_button {
+    background-color: #FEDBCA;
+    border:thin solid #904142;
+    border-radius: 0.42em;
+    color: #904142;
+}
+
+
+#navbar ul { 
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #555;
+    } 
+ 
+#navbar ul li {  
+    float: left;
+    } 
+ 
+#navbar ul li a { 
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 14px;
+    text-decoration: none; 
+} 
+
+#navbar ul li p { 
+    display: block;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    padding: 1px 10px;
+    padding-right: 0px;
+    text-decoration: none;
+    line-height: 0.5;
+}
+
+
+#navbar ul li a:hover { 
+    background-color: #111;
+}
+
+#navbar ul li form input {
+    padding: 13px 8px;
+    border: 1px;
+    border-right-width: 0px;
+}
+
+#navbar ul li form button {
+    padding: 12px 6px;
+    padding-right: 10px;
+    border: 2px;
+    background-color: #555;
+    color: white;
+    text-align: right;
+    text-decoration: none;
+} 
+
+#navbar ul li form button:hover {
+    padding: 12px 6px;
+    padding-right: 10px;
+    border: 2px;
+    background-color: #111;
+}
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 0em;
+    margin-left: 0.8em;
+}
+
+h5.subtitle {
+    text-align: center;
+}
+
+img {
+    padding: 5px;
+}
+
+table.main {
+    width: 90%;
+    background-color: #B0C4DE;
+    margin: 10px auto; 
+    padding: 5px;
+}
+
+table.login {
+    width: 85%;
+    display: block;
+    max-width: 500px;
+    background-color: #B0C4DE;
+    margin: 10px auto; 
+    padding: 5px;
+}
+
+img.small {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+    padding: 0em;
+}
+img.v_small {
+    width: 45px;
+    height: 45px;
+    display: block;
+    margin: 0 auto;
+    padding: 0em;
+}
+
+p.img_text {
+    margin-top: 0.1em;
+    margin-bottom: 0em;
+
+}
+
+p.s_img_text {
+    line-height: 0.9em;
+    margin-top: 0.05em;
+    margin-bottom: 0em;
+
+}
+
+img.profile {
+    max-width: 500px;
+    max-height: 500px;
+    float: center;
+}
+
+td.img_cell {
+    max-width: 100%;
+    float: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ul.details {
+    text-align: left;
+}
+
+ul.posts {
+    list-style: none;
+}
+
+ul.comments {
+    list-style: none;
+}
+
+ul.replies {
+    list-style: none;
+}
+
+.students_list ul {
+    float: left;
+    margin: 0; 
+    padding: 0; 
+    list-style-type: none;
+}
+
+.students_list li {
+    float: left;
+    margin: 8px 6px;
+    list-style: none;
+}
+
+li.time {
+    line-height: 1;
+}
+
+li.from {
+    line-height: 1;
+}
+
+li.msg_head {
+    line-height: 1;
+}
+
+input.login {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}

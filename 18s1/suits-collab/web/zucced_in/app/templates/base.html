@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SafeBook</title>
+<link href="{{url_for('static', filename='zucced.css')}}") rel="stylesheet">
+</head>
+<body>
+<div id="navbar">
+	<ul>
+		<li><a href="{{url_for('login')}}">SafeBook</a></li>
+		{% if not 'username' in session %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+        {% else %}
+            <li class="nav_msg"><p>Welcome, {{session['username']}}</p></li>
+            <li><a href="{{ url_for('logout') }}">(Log Out)</a></li>
+        {% endif %}
+    	
+	</ul>
+</div>
+
+{% block body_contents %}
+{% endblock %}
+
+</body>
+</html>

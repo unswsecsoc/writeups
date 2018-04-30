@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Site</title>
+    <!-- Stylesheets -->
+  	<link rel="stylesheet" href="{{url_for('static', filename='bootstrap.css')}}"/>
+  </head>
+  <body>
+    <header class="header">
+      <nav id="navbar-wrapper-main" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/" on>Chat Board</a>
+        <button class="navbar-toggler" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav mr-auto">
+            <li> Welcome {{name}} </li>
+          </ul>
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div style="text-align: center; margin-top: 5em">
+      <h3> What's on your mind? {%if flag%}{{flag}}{%endif%}</h3>
+      <br>
+      <form method="post">
+        <div style="width: 40%; margin-left: 30%">
+          <input name="post" placeholder="post something!" type="text" class="form-control">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-info"> Post! </button>
+      </form>
+    </div>
+    <table class="table" style="margin: 5%; width: 90%;">
+      <tr>
+        <th style="font-size: 1.2em; color: #444444">User</b> </th>
+        <th style="font-size: 1.2em; color: #444444">Message</b> </th>
+        <th style="font-size: 1.2em; color: #444444">Date</b> </th>
+      </tr>
+      {% for e in data %}
+      <tr>
+        <td> {{e[0]}} </td>
+        <td> {{e[1]}} </td>
+        <td> {{e[2]}} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
