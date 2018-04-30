@@ -2,11 +2,9 @@
 
 ## Flavortext
 
-orang: i cant descronch
- 
-meme man: you needst to u n s c r o m b l e 
-
-orang: wtf 
+> orang: i cant descronch 
+> meme man: you needst to u n s c r o m b l e 
+> orang: wtf 
 
 
 }LRMISETLVC$NAWUGFBOODARHYOCEMSJD{MGE
