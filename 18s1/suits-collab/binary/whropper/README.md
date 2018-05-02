@@ -31,6 +31,8 @@ _Pick a disassembler/debugger of choice (I'm using GDB in this case)_
    - for some reason this fails whenever done by hand 
    - no idea why so thats why the hint recommends doing it with `pwntools`
    
+(For those just starting with binary I recommend watching the part in the video a well, as explaining step-by-step in text would take way too long, for experienced players just ignore this :P) 
+
 
 # Flag 
 FLAG{grabbin_a_byte_to_eat}
