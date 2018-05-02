@@ -28,8 +28,15 @@ _Pick a disassembler/debugger of choice (I'm using GDB in this case)_
    as the others would simply get rejected  
    
 -  to overwrite the return address you need `"10" + "A"*8 + <&deepdatfrier>` 
-   - for some reason this fails whenever done by hand 
-   - no idea why so thats why the hint recommends doing it with `pwntools`
+
+An example payload which should technically work is   
+`./whropper <<< $(python -c 'print "10"+"A"*8+"\x56\x06\x40\x00\x00\x00\x00\x00"')`
+
+Unfortunately because the return address is 64-bit, we need to have the extra null-bytes at the end to properly overwrite the address
+However this fails because the `gets()` function stops reading at the first null-byte. 
+
+For some reason using pwntools can mitigate this issue, hence why the hint suggests sending your payload through pwntools ! 
+
    
 (For those just starting with binary I recommend watching the part in the video a well, as explaining step-by-step in text would take way too long, for experienced players just ignore this :P) 
 
