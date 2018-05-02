@@ -35,7 +35,7 @@ An example payload which should technically work is
 Unfortunately because the return address is 64-bit, we need to have the extra null-bytes at the end to properly overwrite the address
 However this fails because the `gets()` function stops reading at the first null-byte. 
 
-For some reason using pwntools can mitigate this issue, hence why the hint suggests sending your payload through pwntools ! 
+For some reason using pwntools can mitigate this issue, hence the hint suggests sending your payload through pwntools ! 
 
    
 (For those just starting with binary I recommend watching the part in the video a well, as explaining step-by-step in text would take way too long, for experienced players just ignore this :P) 
