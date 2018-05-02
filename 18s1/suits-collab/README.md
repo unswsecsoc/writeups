@@ -1,6 +1,10 @@
 # SecSoc X SUITS Collab CTF 
 Writeups are inside, happy hacking :) 
 
+* Screen capture (no audio): **<TBA>**
+* Recording: **<TBA>**
+
+
 ## Authors / Special Thanks 
 
 - **Reversing**
@@ -36,6 +40,4 @@ Writeups are inside, happy hacking :)
 - **Recon**  
   - free points: Colin
   - Recon 0: Wing
-  - Collab: Wing / Zain / David Vo
-  
-
+  - Collab: Wing / Zain / David Vo  
