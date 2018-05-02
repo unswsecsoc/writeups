@@ -1,10 +1,7 @@
 # SecSoc X SUITS Collab CTF 
-Writeups are inside, happy hacking :) 
-
-* Screen capture (no audio): **<TBA>**
-* Recording: **<TBA>**
-
-
+Writeups are inside, happy hacking :)    
+Recording: https://youtu.be/nwIDN01HQgg  
+ 
 ## Authors / Special Thanks 
 
 - **Reversing**
