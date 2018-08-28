@@ -78,7 +78,6 @@ if(len(sys.argv) == 3 and sys.argv[1] == '-d' and sys.argv[2] is not None):
 
 # Create a new gist
 print("Creating new gist ...")
-gist = "VGhlIGJlZ2lubmluZyBvZiB0aW1lcyAuLi4K"
 content = {"content": gist}
 files = {"scratchpad.txt": content}
 payload = {"public":False, "files":files}	 #### CHANGE TO FALSE FOR CHALLENGE #### 
