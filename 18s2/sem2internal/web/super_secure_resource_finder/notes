@@ -1,0 +1,18 @@
+Helpful functions 
+===============================================================================
+alias build='docker build -t ssrf_test .'
+alias run='docker run -d -p 9451:80 --name ssrf_app ssrf_test'
+check() { docker exec -it "$1" bash; }
+alias stop='docker stop ssrf_app && docker rm ssrf_app'
+===============================================================================
+
+# Debugging one using volumes instead of copying into container
+alias run='docker run -d -p 9451:80 --name ssrf_app -v $PWD/files:/var/www/html ssrf_test'
+
+#how to spawn shell
+docker exec -it <containerID> bash
+
+docker build -t <name> .
+docker run -d -p 9451:80 --name <run> -v $PWD/files:/var/www/html <name>
+alias stop='docker stop <run> && docker rm <run>'
+

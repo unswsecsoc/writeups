@@ -1,0 +1,62 @@
+.responsive {
+  height: auto;
+  width: 100%;
+  max-width:300px;
+}
+
+.responsive-s {
+  height: auto;
+  width: 100%;
+  max-width:600px;
+}
+
+.responsive-m {
+  height: auto;
+  width: 100%;
+  max-width:900px;
+}
+
+.media-font {
+ font-family: Cormorant;
+}
+.s-tight {
+  padding: 0.5vw;
+}
+
+.m-tight {
+  padding: 1vw;
+}
+
+.r-tight {
+  padding: 2vw;
+}
+
+.s-text {
+  font-size: 2vw;
+}
+
+.m-text {
+  font-size: 3vw;
+}
+
+.hovertitle:hover {
+  text-shadow: 2px 2px 0 #ffd700,
+              -2px -2px 0 #ffd700,
+              -3px -3px 0 #ffd700,
+              3px 3px 0 #ffd700;
+}
+
+.hoverimage:hover {
+  box-shadow: 2px 2px 6px #ffd700,
+              -2px -2px 6px #ffd700,
+              -3px -3px 6px #ffd700,
+              3px 3px 6px #ffd700;
+}
+
+/* Did I ever tell you what the definition of insanity is ? */
+
+.debug {
+  border:1px solid black 
+}
+
+/* Insanity is trying to align the same HTML elements over and over again expecting shit to change */

@@ -1,0 +1,8 @@
+docker build -t <name> .
+docker run -d -p 9450:80 --name <run> -v $PWD/files:/var/www/html <name>
+alias stop='docker stop <run> && docker rm <run>'
+
+
+
+docker run -d -p 9450:80 --name recon_app -v $PWD/files:/var/www/html recon_test
+alias stop='docker stop recon_app && docker rm recon_app'

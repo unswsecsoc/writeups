@@ -1,0 +1,5 @@
+function runIntel(o){var oooo=4096;var OoOo=Array.from(Array(oooo)).map((OOO,ooooo)=>0);var OoooO=0;for(let OOOoOO of o){OoOo[OoooO]=OOOoOO;OoooO++}
+var OoooO=4001;for(let oOOooO of "flag{XXXXXXXXXXXXX}"){OoOo[OoooO]=oOOooO.charCodeAt(0);OoooO++}
+var oooOOOooo=[0,0,0,0,0,0,0,0];var OoOoOO=[(oO,Oo,OO)=>{},(oO,Oo,OO)=>{if(Oo<4000)oooOOOooo[oO]=OoOo[Oo]},(oO,Oo,OO)=>console.log(String.fromCharCode(oooOOOooo[oO])),(oO,Oo,OO)=>oooOOOooo[oO]=oooOOOooo[Oo]-oooOOOooo[OO],(oO,Oo,OO)=>oooOOOooo[oO]=oooOOOooo[Oo]+oooOOOooo[OO],(oO,Oo,OO)=>{if(oO<4000)OoOo[oO]=oooOOOooo[Oo]},(oO,Oo,OO)=>console.log(oooOOOooo),(oO,Oo,OO)=>oooOOOooo[oO]=Oo,(oO,Oo,OO)=>oooOOOooo[oO]=OoOo[Oo]+OoOo[OO]];let oOOOo=0;while(oOOOo+3<=4000){if(OoOoOO[OoOo[oOOOo]]!==undefined)
+OoOoOO[OoOo[oOOOo]](OoOo[oOOOo+1],OoOo[oOOOo+2],OoOo[oOOOo+3]);oOOOo+=4}}
+process.stdin.on('data',function(oo){let o=String(oo).split(" ");o=o.map(ooo=>parseInt(ooo));runIntel(o)});console.log("Welcome to intel_3.js! Good luck with this one smarty pants")

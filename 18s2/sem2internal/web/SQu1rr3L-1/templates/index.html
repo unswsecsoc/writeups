@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Squirrel Fortune Teller</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <style>
+        /* From view-source:https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css */
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body class="text-center">
+<div class="container">
+    <h1 class="h3 mb-3 font-weight-normal">Welcome, admin.</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Your fortune today is: {{ flag }}</h1>
+    <p class="mt-5 mb-3 text-muted">&copy; 2018 Squirrel Fortune Teller</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+nc -l 4444 < pipe_name  | node level_3.js >pipe_name

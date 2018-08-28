@@ -1,0 +1,86 @@
+Look up "SANS institute getting owned by malicious PDF"
+
+Awesome resources for PDf-related stuff:
+https://github.com/angea/PDF101
+https://www.slideshare.net/ange4771/advanced-pdf-tricks
+
+Compile shellcode using 
+gcc test.c -o test -fno-stack-protector -z execstack -no-pie
+
+1. decode the flatedecode decompresion -> reveals the Wellmare string 
+2. trace the different object calls 
+3. They have to pull out the shellcode and unescape it to get the flag in ascii form
+
+Tricks in VIM for editing PDFs
+-> trailer part not synced up / xref part
+	-> always use `vim -b` to avoid fucking up the byte offsets 
+-> flatedecode used wrongly -> makes no snese to have it on an "uncompressed version"
+	-> can use openssl zlib -d < $IN > $OUT 
+	or if your openssl doesnt have that can use 
+	-> cat $IN | zlib-flate -[un]compress    
+-> set a good statusbar to see the byte counts and jump there using :goto <bytes>
+-> set display=uhex to avoid looking at the mangled byte mess 
+
+qpdf tool to help 
+- check 
+	qpdf --check the.pdf
+- show correct xref tables 
+	qpdf --show-xref the.pdf
+
+can obfuscate by doing /Pages-> /P#61ges
+can also use hex <4E> blah blah blah 
+
+*** NOTE: Malware should be implanted in the compressed state so that it can de uncompressed to reveal src !!!  ***
+Add title payload
+Add Function call to the Kids section
+
+/Kids will point to 24 0 
+23 0 will be the shellcode payload split at 1148
+24 0 will be the deobfus functions
+	-> will referrence this.info.title -> 23 0 R 
+
+
+
+## 0 obj
+<< /Length /Filter /FlateDecode
+>>
+stream
+endstream
+endobj
+var QmluYXJ5IFJldmVyc2luZwo = "";
+
+function ZXhlY3V0ZXroZXBheWxvYWRtdWFoYWhhaGFoYTEhCg(bGVnaXRhcmd1bWVudAo, ZmFrZWFyZ3VtZW50c3Ryb2xsCg, ZmV0YW5vdGhlcnRyb2xsaGFoYQo) {
+	var kj2hnx87y = eval;
+	var bGVnaXRhcmd1dWVudAo = ZmFrZWFyZ3VtZW50c3Ryb2xsCg + ZmV0YW5vdGhlcnRyb2xsaGFoYQo;
+	kj2hnx87y(bGVnaXRhcmd1bWVudAo);
+}
+
+
+
+var bmV2ZXJnb25uYXNheWdvb2RieWUK = this.info.title;
+
+function ZGVvYmZ1c2NhdGVpbmd0aGVwYXlsb2FkbG9sCg(bmV2ZXJnb25uYXJ1bmFyb3VuZAo, bmV2ZXJnb25uYXNheWdvb2RieWUK, bmV2ZXJnb25uYWdpdmV5b3V1cAo , bmV2ZXJnb25uYWxldHlvdWRvd24K) {
+	var dHV0cdXyJ1CkgA = "%";
+	var YWN0dWFsbHlyZXBsYWNlCg = "replace";
+	QmluYXJ5IFJldmVyc2luZwo = bmV2ZXJnb25uYXNheWdvb2RieWUK.YWN0dWFsbHlyZXBsYWNlCg(/c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK/g, dHV0cdXyJ1CkgA);
+	
+	eval("var cGF5bG9hZHBheWxvYWRwYXlsb2FkCg = un" + "es" + "cape" + "(QmluYXJ5IFJldmVyc2luZwo)");
+	ZXhlY3V0ZXRoZXBheWxvYWRtdWFoYWhhaGFoYTEhCg(cGF5bG9hZHBheWxvYWRwYXlsb2FkCg);	
+}
+
+ZGVvYmZ1c2NhdGVpbmd0aGVwYXlsb2FkbG9sCg();
+
+var bmV2ZXJnb25uYXNheWdvb2RieWUK = "c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKE9c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK1Ec29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKB8c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK04c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKBBc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK01c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK59c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKBAc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK0Fc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKCDc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK80c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKB8c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK01c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKBBc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK00c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKCDc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK80c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKE8c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKDDc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKFFc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKFFc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAKFFc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK66c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK6Cc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK61c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK67c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK7Bc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK64c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK33c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK63c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK72c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK79c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK70c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK54c29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK7Dc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK0Dc29tZSBvYmZ1c2NhdGluZyBtZXNzIG9mIGFscGhhYmV0IHNvdXAK0A"
+
+
+--------------------- keep track of bytes ordering !!!! 
+
+1. Find the things to flate decode and then decompress and put in place of the originals, make sure nothing breaks
+   don't forget to add the URL for 
+   	(don't forget to add the Gist URL)
+2. update the byte offset counts, add 3 new objects into the xref
+3. in trailer update num objects
+4. startxref needs to be updated too 
+
+
+if this fails then just try the appending method lo 

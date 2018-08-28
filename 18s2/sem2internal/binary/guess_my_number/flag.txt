@@ -1,0 +1,1 @@
+flag{format_your_name_to_win}
