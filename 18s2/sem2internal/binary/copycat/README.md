@@ -1,4 +1,5 @@
-# Verification key
+# copycat
+  
 ## Flavour text
 This cat likes to copy you. Can you get it to copy something else?
 ## Solution
