@@ -1,0 +1,28 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+     - "12000:80"
+    volumes:
+      - ./www:/www:ro
+      - ./nginx_site.conf:/etc/nginx/conf.d/site.conf:ro
+    networks:
+      - k17net
+  php:
+    build: ./php
+    volumes:
+      - ./www:/www:ro
+      - ./php.conf:/usr/local/etc/php-fpm.d/www.conf:ro
+    networks:
+      - k17net
+  db:
+    image: mysql:5
+    environment:
+      MYSQL_ROOT_PASSWORD: SuPeR_SeCuRe_Ro0t
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+    networks:
+      - k17net
+networks:
+  k17net:

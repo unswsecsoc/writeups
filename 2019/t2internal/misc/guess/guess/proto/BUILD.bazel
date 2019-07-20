@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
+
+proto_library(
+    name = "guess_proto",
+    srcs = ["guess.proto"],
+    visibility = ["//visibility:public"],
+)
+
+go_proto_library(
+    name = "guess_go_proto",
+    compiler = "@io_bazel_rules_go//proto:go_grpc",
+    importpath = "github.com/adamyi/guess_ctf_challenge/guess/proto",
+    proto = ":guess_proto",
+    visibility = ["//visibility:public"],
+)
