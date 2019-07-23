@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto;
+
+service Guess {
+  rpc PlayGame (stream GuessRequest) returns (stream GuessReply) {}
+}
+
+message GuessRequest {
+  int64 num = 6843;
+  int64 captcha = 9447;
+}
+
+message GuessReply {
+  string msg = 1;
+  int32 tries = 2;
+  int32 nums = 3;
+  int32 captcha1 = 88;
+  int32 captcha2 = 200;
+  bool done = 1000;
+}
