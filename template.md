@@ -1,22 +1,54 @@
-# 
+# title
 
-## Author
+## Authors
+* username
 
 ## Category
+* Reversing
+* Web
+* Binary Exploit
+* Reversing
+* Crypto
+* Misc
+* Recon
+* Forensics
 
-## Type
+## Tags
+* ...
 
 ## Description
+...
+
+## Difficulty
+* easy
+* medium
+* hard
 
 ## Points
+000
 
 ## Hints
+1. ...
+1. ...
 
 ## Files
+* filename: description
 
-## Walkthrough
+## Setup
+1. ...
+1. ...
 
-## Flag
+## Solution
+<details>
+<summary>spoiler</summary>
 
-## Other
+### Idea
+...
 
+### Walkthrough
+1. ...
+1. ...
+
+### Flag
+`flag{...}`
+</details>
