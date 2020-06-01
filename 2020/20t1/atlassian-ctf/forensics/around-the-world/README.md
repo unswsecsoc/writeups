@@ -4,7 +4,7 @@
 Vicknesh
 
 ## Category
-* Forensics
+Forensics
 
 ## Description
 Someone stole my phone :(. The worst part is that I went on holiday to Sydney recently and now I have no pictures to remember my trip by. But then a couple days ago, a photo I took in Sydney got uploaded twice to my google drive. Could you help me find where my phone is?
