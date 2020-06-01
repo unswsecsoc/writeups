@@ -1,54 +1,33 @@
-# title
+# bruh sound effect #2.5
 
 ## Authors
-* username
+Vicknesh
 
 ## Category
-* Reversing
-* Web
-* Binary Exploit
-* Reversing
-* Crypto
-* Misc
-* Recon
-* Forensics
-
-## Tags
-* ...
+Forensics
 
 ## Description
-...
+Lol, listen to this meme
 
 ## Difficulty
-* easy
-* medium
-* hard
+easy
 
 ## Points
-000
-
-## Hints
-1. ...
-1. ...
+50
 
 ## Files
-* filename: description
-
-## Setup
-1. ...
-1. ...
+bruh sound effect #2.5.wav : Audio file with a bruh sound effect and some background noise
 
 ## Solution
 <details>
 <summary>spoiler</summary>
 
 ### Idea
-...
+Most forensics questions involve data hidden in images, so in this one I decided to hide it in a different medium instead.
 
 ### Walkthrough
-1. ...
-1. ...
+1. Put the audio file into any audio editing software (such as audacity), or audio visualising software (such as sonic visualiser) and look at the spectrogram. The spectrogram shows the flag.
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{d3Ad_m3m3s_h1d3_414gGs}`
 </details>
