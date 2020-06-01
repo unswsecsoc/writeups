@@ -15,6 +15,9 @@ easy
 ## Points
 50
 
+## Hints
+1. I wonder how it was com_py_led
+
 ## Files
 assign1: an executable which when launched asks for a password which the competitor doesn't know
 
