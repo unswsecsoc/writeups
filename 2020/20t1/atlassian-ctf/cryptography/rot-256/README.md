@@ -1,54 +1,48 @@
-# title
+# Rot 256
 
 ## Authors
-* username
+
+* todo
 
 ## Category
-* Reversing
-* Web
-* Binary Exploit
-* Reversing
-* Crypto
-* Misc
-* Recon
-* Forensics
+
+* crypto
 
 ## Tags
-* ...
+
+_crypto_
 
 ## Description
-...
+
+Everyone's favorite encryption scheme just got an upgrade.
 
 ## Difficulty
+
 * easy
-* medium
-* hard
 
 ## Points
-000
+
+25
 
 ## Hints
-1. ...
-1. ...
+
+_None_
 
 ## Files
-* filename: description
+
+* src/ciphertext
+* src/rot256.py
 
 ## Setup
-1. ...
-1. ...
+
+* Provide the given files
 
 ## Solution
-<details>
-<summary>spoiler</summary>
 
-### Idea
-...
+_Code can be found in `solve.py`_
 
-### Walkthrough
-1. ...
-1. ...
+As there are only 256 possible keys you could just bruteforce all of them, alternatively as you know the flag starts with `ATLASSIAN{` you know the key must be the modular difference between the character code for `A` and the first byte of the ciphertext.
 
 ### Flag
-`flag{...}`
-</details>
+
+`ATLASSIAN{rot_spu_tqv_urw_vsx_wty_xuz}`
