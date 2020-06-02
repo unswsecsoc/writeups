@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Phonebook | {{ name }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='chota.min.css') }}">
+        <style>
+            input, button { border-radius: 0 !important; }
+            #messages { position:fixed; width: 15%; padding: 1em; font-family: monospace; bottom: 0; }
+            #messages > div {
+                padding: 1em;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                overflow-wrap: break-word;
+                margin-top: 5px;
+            }
+        </style>
+        <script>
+            /**
+             * These functions are used by the admin to send messages to the user
+             */
+            const c = document.cookie;
+            if(c.includes('flag')) {
+                function n(msg) {
+                    fetch('/api/admin/message', {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({'message': msg})
+                    });
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>{{ name|safe }}</h1>
+            <div>
+                <div style="display: flex">
+                    <strong style="width: 20%; line-height: 2">New Entry</strong>
+                    <input type="text" style="width: 20%" maxlength="7" required name="phonenumber" placeholder="Phone Number">
+                    <input type="text" required name="numberowner" placeholder="Owner">
+                    <button type="submit" id="add">Add</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr><th>Number</th><th>Person</th></tr>
+                </thead>
+                <tbody>
+                    {% for phonedat in numbers %}
+                        <tr><td>{{ phonedat[0]|safe }}</td><td>{{ phonedat[1] }}</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="messages">
+            {% for message in messages %}
+            <div>{{ message[0] }}</div>
+            {% endfor %}
+        </div>
+
+        <script>
+            /* Controller functions */
+            document.querySelector('#add').addEventListener('click', () => {
+                fetch('/api/phonebook/' + window.location.pathname.split('/').pop(), {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        'phonenumber': document.querySelector('[name="phonenumber"]').value,
+                        'numberowner': document.querySelector('[name="numberowner"]').value
+                    })
+                }).then(r => {
+                    if(r.ok) { window.location.reload(); }
+                    else { r.json().then(b => alert(b)); }
+                });
+
+                Array.from(document.querySelectorAll('#messages > div')).forEach(e => e.addEventListener('click', e => e.target.parentElement.removeChild(e)));
+            });
+        </script>
+    </body>
+</html>

@@ -1,54 +1,36 @@
-# title
+# Free RSS
 
 ## Authors
-* username
+* todo
 
 ## Category
-* Reversing
 * Web
-* Binary Exploit
-* Reversing
-* Crypto
-* Misc
-* Recon
-* Forensics
 
 ## Tags
-* ...
+N/A
 
 ## Description
-...
+I've found a site that lets you subscribe to RSS feeds for free! They're even working on their own RSS hosting system, although its not avaliable yet...
 
 ## Difficulty
-* easy
 * medium
-* hard
 
 ## Points
-000
+200
 
 ## Hints
-1. ...
-1. ...
+N/A
 
 ## Files
-* filename: description
+* src: Challenge Source
 
 ## Setup
-1. ...
-1. ...
+1. Run the provided docker file
 
 ## Solution
 <details>
 <summary>spoiler</summary>
 
-### Idea
-...
+Your solution here!
 
-### Walkthrough
-1. ...
-1. ...
-
-### Flag
-`flag{...}`
 </details>

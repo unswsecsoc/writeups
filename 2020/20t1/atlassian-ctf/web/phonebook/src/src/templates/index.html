@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Phonebook | Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='chota.min.css')}}">
+        <style>input, button { border-radius: 0 !important; }</style>
+    </head>
+    <body class="is-center" style="height: 100vh; background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%)">
+        <div>
+            <div class="card" style="background: white">
+                <div><h1>Create a new Phonebook</h1></div>
+                <div>
+                    <div style="display: flex">
+                        <input name='pbname' placeholder="Name" maxlength="10" required>
+                        <button type="submit" id="create">Create</button>
+                    </div>
+                </div>
+                <small>Note: Every few minutes the admin will do a visit each phonebook to ensure they abide by our Terms and Conditions</small>
+                <br>
+                <small>Note 2: As the site is still in beta, any phone book older than 2 hours will be deleted.</small>
+            </div>
+        </div>
+        <script>
+            document.querySelector('#create').addEventListener('click', () => {
+                fetch('/api/phonebook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({'pbname': document.querySelector('[name="pbname"]').value}),
+                    credentials: 'include'
+                }).then(r => {
+                    r.json().then(j => {
+                        if(r.status == 200) { window.location.href = "/phonebook/" + j; }
+                        else { alert(j); }
+                    });
+                })
+            });
+        </script>
+    </body>
+</html>

@@ -1,54 +1,43 @@
-# title
+# My first website
 
 ## Authors
-* username
+* p1gc0rn
 
 ## Category
-* Reversing
 * Web
-* Binary Exploit
-* Reversing
-* Crypto
-* Misc
-* Recon
-* Forensics
 
 ## Tags
-* ...
+* .git 
+* github
 
 ## Description
-...
+I always wanted to create a website to show off my dev skills, and here it is http://35.201.6.202/ I learned flask and wsgi to get the website up and used git for version control.  
 
 ## Difficulty
 * easy
-* medium
-* hard
 
 ## Points
-000
+50
 
 ## Hints
-1. ...
-1. ...
+N/A
 
 ## Files
-* filename: description
+* URL: http://35.201.6.202/
 
 ## Setup
-1. ...
-1. ...
+1. Externally Hosted
 
 ## Solution
 <details>
 <summary>spoiler</summary>
 
-### Idea
-...
-
-### Walkthrough
-1. ...
-1. ...
+1. http://35.201.6.202/.git exposed
+1. get to the public repo at https://github.com/aintnosunshine/my-first-website
+1. find the credentials through past commit
+1. login and get the flag
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{should_not_have_exposed_.git}`
+
 </details>

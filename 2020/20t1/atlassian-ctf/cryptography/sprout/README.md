@@ -1,54 +1,47 @@
-# title
+# Sprout
 
 ## Authors
-* username
+* todo
 
 ## Category
-* Reversing
-* Web
-* Binary Exploit
-* Reversing
 * Crypto
-* Misc
-* Recon
-* Forensics
 
 ## Tags
-* ...
+* Seed Exploit
 
 ## Description
-...
+Sprout is the latest anonymous message sharing board. We never store your keys and utilize the latest in
+military grade AES encryption. Just try cracking our messages.
 
 ## Difficulty
 * easy
-* medium
-* hard
 
 ## Points
-000
+100
 
 ## Hints
-1. ...
-1. ...
+N/A
 
 ## Files
-* filename: description
+* src/src/snippets.py
 
 ## Setup
-1. ...
-1. ...
+1. Run the provided docker file
 
 ## Solution
 <details>
 <summary>spoiler</summary>
 
-### Idea
-...
+### Description
+This challenge involves exploiting a weak random seed.
 
-### Walkthrough
-1. ...
-1. ...
+#### Discovery
+By curling the page (or disabling javascript), we see that the messages table originally contains a unix timestamp.
+
+#### Exploiting
+We seed a the python random algorithm with the disocvered unix timestamp and generate keys and ivs for each message. We can then recover the plain text by running normal decryption.
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{rN9_i5_n0T_R4nd0m}`
+
 </details>

@@ -1,54 +1,37 @@
-# title
+# WOW
 
 ## Authors
-* username
+* sergeantSkid
 
 ## Category
 * Reversing
-* Web
-* Binary Exploit
-* Reversing
-* Crypto
-* Misc
-* Recon
-* Forensics
 
 ## Tags
-* ...
+* Windows
 
 ## Description
-...
+You've uncovered a secret build of World of Warcraft which seems to be developed by... lizard people? Find out what secrets they're hiding by hacking into their server!
 
 ## Difficulty
-* easy
-* medium
 * hard
 
 ## Points
-000
+200
 
 ## Hints
-1. ...
-1. ...
+1. How does the application verify the credentials?
+1. Dynamic analysis is useful here.
 
 ## Files
-* filename: description
+* World of Warcraft.exe: Binary to reverse.
 
 ## Setup
-1. ...
-1. ...
+1. Get a Windows machine.
 
 ## Solution
 <details>
 <summary>spoiler</summary>
 
-### Idea
-...
+Your solution here!
 
-### Walkthrough
-1. ...
-1. ...
-
-### Flag
-`flag{...}`
 </details>
