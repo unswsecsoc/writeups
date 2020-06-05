@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+    <head>
+        <title>FRSS File Share</title>
+    </head>
+    <body>
+        <h1>FRSS File Share</h1>
+        <ul>
+            {% for f in files %}
+                <li><a href="/{{ f }}?token={{ token }}">{{ f }}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

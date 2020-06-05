@@ -1,0 +1,2 @@
+file_dir   = "files"
+dir_secret = "VaRg0sAS09TYPqej43m1eHbDTCb5S0VqhhMffPXOj2yhaGIItUA8TB132AF2aXzA5CYAgD8JUtVTva8aLVXVpioYhJgWWuLOS0GPjy6B7egzaASxdPtRV2Ib5CKmRgHa"

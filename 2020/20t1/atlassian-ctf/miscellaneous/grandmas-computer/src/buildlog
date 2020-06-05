@@ -1,0 +1,35 @@
+Sending build context to Docker daemon  12.29kB
+Step 1/11 : FROM ubuntu:18.04
+ ---> c3c304cb4f22
+Step 2/11 : RUN apt update && apt install -y sudo
+ ---> Using cache
+ ---> 6928fcf89425
+Step 3/11 : COPY sudoers /etc/sudoers
+ ---> Using cache
+ ---> 371bc8f14994
+Step 4/11 : RUN useradd -m ctf && usermod -a -G sudo ctf
+ ---> Using cache
+ ---> 66d467304b14
+Step 5/11 : WORKDIR /home/ctf
+ ---> Using cache
+ ---> cd93cc807c3b
+Step 6/11 : RUN chown -R root:root .
+ ---> Using cache
+ ---> a0f5b260e0f3
+Step 7/11 : COPY flag.txt .
+ ---> Using cache
+ ---> 199b6c38c200
+Step 8/11 : RUN chmod o-r flag.txt
+ ---> Using cache
+ ---> 2443274795ae
+Step 9/11 : RUN chmod 0000 /bin/bash && 	chmod 0000 /bin/bunzip* && 	chmod 0000 /bin/bz* && 	chmod 0000 /bin/cp && 	chmod 0000 /bin/chown &&     chmod 0000 /bin/chgrp &&     chmod 0000 /bin/cat &&     chmod 0000 /bin/dd &&     chmod 0000 /bin/dmesg &&     chmod 0000 /bin/echo &&     chmod 0000 /bin/grep &&     chmod 0000 /bin/gunzip &&     chmod 0000 /bin/gzexe &&     chmod 0000 /bin/gzip &&     chmod 0000 /bin/egrep &&     chmod 0000 /bin/fgrep &&     chmod 0000 /bin/ln &&     chmod 0000 /bin/lsblk &&     chmod 0000 /bin/mknod &&     chmod 0000 /bin/mv &&     chmod 0000 /bin/readlink &&     chmod 0000 /bin/run-parts &&     chmod 0000 /bin/sed &&     chmod 0000 /bin/su &&     chmod 0000 /bin/tar &&     chmod 0000 /bin/uncompress &&     chmod 0000 /bin/vdir &&     chmod 0000 /bin/wdctl &&     chmod 0000 /bin/z* &&     chmod 0000 /usr/bin/* &&     chmod 4755 /usr/bin/id &&     chmod 4755 /usr/bin/sudo &&     chmod -R 0000 /usr/sbin &&     chmod 0000 /bin/chmod
+ ---> Using cache
+ ---> dba36bcf3748
+Step 10/11 : USER ctf
+ ---> Using cache
+ ---> 4cdc05bac307
+Step 11/11 : ENTRYPOINT /bin/sh -i 2>&1
+ ---> Using cache
+ ---> 57467d4a5255
+Successfully built 57467d4a5255
+Successfully tagged benlichtman/2020_grandma:latest

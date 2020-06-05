@@ -17,26 +17,21 @@
 * ...
 
 ## Description
-...
+I tried to be organised and placed my flag in a top secret location on my Trello board. Unfortunately it looks like someone's hacked into my account and rearranged everything and I can't rEveRse It :( Please help me find my flag. 
+
+[Link](https://trello.com/b/chAtVHmk/trello-bored)
+
 
 ## Difficulty
 * easy
-* medium
-* hard
 
 ## Points
-000
+50
 
 ## Hints
 1. ...
 1. ...
 
-## Files
-* filename: description
-
-## Setup
-1. ...
-1. ...
 
 ## Solution
 <details>
@@ -50,5 +45,5 @@
 1. ...
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{nO1ce_oNe}`
 </details>

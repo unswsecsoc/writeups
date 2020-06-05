@@ -13,30 +13,18 @@
 * Recon
 * Forensics
 
-## Tags
-* ...
-
 ## Description
-...
+I'm not sure why committing this repo took so long. 
+
+[repo link](https://github.com/coolvuedeveloper42/my-first-vue)
+
+Please add ATLASSIAN in front of the flag.
 
 ## Difficulty
 * easy
-* medium
-* hard
 
 ## Points
-000
-
-## Hints
-1. ...
-1. ...
-
-## Files
-* filename: description
-
-## Setup
-1. ...
-1. ...
+50
 
 ## Solution
 <details>
@@ -46,9 +34,8 @@
 ...
 
 ### Walkthrough
-1. ...
-1. ...
+1. Just find the flag in the GitHub repo
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{o0Ps_i_c0MmITt3d_my_deP3ndeNc!es}`
 </details>

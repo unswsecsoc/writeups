@@ -46,9 +46,12 @@
 ...
 
 ### Walkthrough
-1. ...
-1. ...
+_Code can be found in `solve.py`_
+
+### Description
+Theres not too much to say, just swap the '+' for a '-'.
+
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{rot_spu_tqv_urw_vsx_wty_xuz}`
 </details>
