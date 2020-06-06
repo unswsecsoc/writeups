@@ -1,38 +1,29 @@
-# title
+# secsoc <3
 
 ## Authors
-* username
+* Ada Luong (@adaluong)
 
 ## Category
-* Reversing
-* Web
-* Binary Exploit
-* Reversing
 * Crypto
-* Misc
-* Recon
-* Forensics
 
 ## Tags
 * ...
 
 ## Description
-...
+help me help me help me help me help me
 
 ## Difficulty
 * easy
-* medium
-* hard
 
 ## Points
-000
+50
 
 ## Hints
 1. ...
 1. ...
 
 ## Files
-* filename: description
+* ilysecsoc.txt: contains text to be deciphered
 
 ## Setup
 1. ...
@@ -43,12 +34,12 @@
 <summary>spoiler</summary>
 
 ### Idea
-...
+Binary code with sec as '0' and soc as '1'.
 
 ### Walkthrough
 1. ...
 1. ...
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{w0w_eZ_fL4Gg}`
 </details>

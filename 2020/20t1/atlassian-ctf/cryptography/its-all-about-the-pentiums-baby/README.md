@@ -1,17 +1,10 @@
-# title
+# it's all about the pentiums, baby
 
 ## Authors
-* username
+* Ada Luong (@adaluong)
 
 ## Category
-* Reversing
-* Web
-* Binary Exploit
-* Reversing
 * Crypto
-* Misc
-* Recon
-* Forensics
 
 ## Tags
 * ...
@@ -23,18 +16,14 @@ payin' the bills with my mad programming skills
 
 format: ATLASSIAN{flag}
 
-
 ## Difficulty
-* easy
 * medium
-* hard
 
 ## Points
-000
+100
 
 ## Hints
-1. ...
-1. ...
+1. Not a Genius, just used Google.
 
 ## Files
 * filename: description
@@ -48,12 +37,12 @@ format: ATLASSIAN{flag}
 <summary>spoiler</summary>
 
 ### Idea
-...
+A book cipher with Google's version of the lyrics to 'It's All About the Pentiums' by Weird Al Yankovic. Given pairs of numbers - the first represents the word's positioning in the lyrics, and the second number represents the position of the character in the word. Indexing for both the word and character starts at 1 instead of 0.
 
 ### Walkthrough
 1. ...
 1. ...
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{sErenDipItyeet}`
 </details>

@@ -1,38 +1,29 @@
-# title
+# hogwardz lettre
 
 ## Authors
-* username
+* Ada Luong (@adaluong)
 
 ## Category
-* Reversing
-* Web
-* Binary Exploit
-* Reversing
 * Crypto
-* Misc
-* Recon
-* Forensics
 
 ## Tags
 * ...
 
 ## Description
-...
+hufflepuffs are particularly good finders. format: ATLASSIAN{_ _ _ _ _ _ _ _ _ _ _ _ _}
 
 ## Difficulty
 * easy
-* medium
-* hard
 
 ## Points
-000
+50
 
 ## Hints
 1. ...
 1. ...
 
 ## Files
-* filename: description
+* hogwartz letter.pdf: short text with mispellings and grammatical errors.
 
 ## Setup
 1. ...
@@ -43,12 +34,13 @@
 <summary>spoiler</summary>
 
 ### Idea
-...
+Text steganography with deliberate mispellings and random capitalisations distributed throughout the text.
+The flag is case sensitive and consists of the incorrect characters in the order they appear.
 
 ### Walkthrough
 1. ...
 1. ...
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{expeLLiarMese}`
 </details>

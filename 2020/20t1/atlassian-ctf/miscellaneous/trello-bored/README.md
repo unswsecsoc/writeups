@@ -1,17 +1,10 @@
-# title
+# trello bored
 
 ## Authors
-* username
+* Ada Luong (@adaluong)
 
 ## Category
-* Reversing
-* Web
-* Binary Exploit
-* Reversing
-* Crypto
 * Misc
-* Recon
-* Forensics
 
 ## Tags
 * ...
@@ -38,7 +31,7 @@ I tried to be organised and placed my flag in a top secret location on my Trello
 <summary>spoiler</summary>
 
 ### Idea
-...
+Hopefully a fun challenge to get started - use 'activity' on the side bar to find the flag as '}eNo_ec1On{NAISSALTA.' Reverse the characters for the flag. 
 
 ### Walkthrough
 1. ...

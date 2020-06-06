@@ -1,38 +1,30 @@
-# title
+# musik
 
 ## Authors
-* username
+* Ada Luong (@adaluong)
 
 ## Category
-* Reversing
-* Web
-* Binary Exploit
-* Reversing
 * Crypto
-* Misc
-* Recon
-* Forensics
 
 ## Tags
 * ...
 
 ## Description
-...
+good sogns from your favouwite musishun
 
 ## Difficulty
 * easy
-* medium
-* hard
 
 ## Points
-000
+50
 
 ## Hints
 1. ...
 1. ...
 
 ## Files
-* filename: description
+* musik.zip: a collection of Meme man memes, a music score, and a midi sequence
+* important.txt: a link to bill wurtz's 'snail time' song.
 
 ## Setup
 1. ...
@@ -43,12 +35,12 @@
 <summary>spoiler</summary>
 
 ### Idea
-...
+the notes from treble clef correspond to letters of the alphabet; the memes were red herrings - don't overthink it.
 
 ### Walkthrough
 1. ...
 1. ...
 
 ### Flag
-`flag{...}`
+`ATLASSIAN{badcabbage}`
 </details>
