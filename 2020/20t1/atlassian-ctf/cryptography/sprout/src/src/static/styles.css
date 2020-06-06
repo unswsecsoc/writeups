@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+}
+
+h1.title.main-title {
+    font-size: 4rem;
+    margin-bottom: 1em;
+}
+
+form {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+form input {
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #eee;
+    color: white;
+    padding: 0.33em;
+    font-size: 1.25em;
+    width: 100%;
+}
+
+#enckey {
+    margin-bottom: 2em;
+    margin-top: -1em;
+}

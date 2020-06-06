@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <title>FRSS</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='rss.css') }}">
+    </head>
+    <body>
+        <aside>
+            <div>
+                <h1>Subscriptions</h1>
+            </div>
+            <div>
+                <!-- For testing: https://www.apple.com/au/rss/ -->
+                <ul id="subscriptions">
+                    <li class="subscription-item subscription-add" id="sadd">+</li>
+                </ul>
+            </div>
+        </aside>
+        <main></main>
+        <!-- Modals -->
+        <div id="modals">
+            <div data-modal="add-subscription">
+                <div class="modal-header">
+                    <h1>Add a new subscription</h1>
+                </div>
+                <div class="modal-body">
+                    <form id="add-sub">
+                        <div id="sub-nick">
+                            <input type="text" name="name" placeholder="Nickname">
+                        </div>
+                        <div id="sub-req">
+                            <select name="method">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                            </select>
+                            <input type="text" name="url" placeholder="http://rss.example.com/myRSS">
+                        </div>
+                        <div id="sub-data">
+                            <textarea name="data" placeholder="POST data"></textarea>
+                        </div>
+                        <div id="sub-submit">
+                            <button role="button">Cancel</button>
+                            <button role="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='rss.js') }}"></script>
+    </body>
+</html>

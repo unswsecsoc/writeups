@@ -1,0 +1,137 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    margin: 0;
+    padding: 0;
+    color: #ccc;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+aside {
+    height: 100%;
+    background-color: #333;
+    padding: 1em;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+main {
+    height: 100%;
+    background-color: #888;
+}
+
+#subscriptions {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    padding: 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.subscription-item {
+    list-style-type: none;
+    padding: 1em;
+    text-align: center;
+    width: 90%;
+    border: 1px solid #2584ca;
+    border-radius: 3px;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+
+.subscription-item:hover {
+    background-color: #3f4454;
+}
+
+.subscription-add {
+    margin-top: 2em;
+    border: 1px solid #04a416;
+}
+
+.subscription-add:hover {
+    background-color: #3f543f;
+}
+
+#modals {
+    z-index: 999;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    display: none;
+}
+
+#modals.active {
+    background-color: #000000aa;
+    display: flex;
+}
+
+#modals [data-modal] {
+    padding: 3em;
+    background-color: #222;
+}
+
+#sub-req {
+    display: flex;
+}
+#sub-req input {
+    padding: 1px;
+    border-radius: 0;
+    outline: 0;
+    border: 1px solid #ddd;
+    margin-left: 2em;
+    width: 100%;
+}
+
+#sub-data textarea {
+    width: calc(100% - 3px);
+    height: 10em;
+    margin-top: 1em;
+    resize: vertical;
+}
+
+#sub-submit {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+#sub-nick {
+    width: 100%;
+    margin-bottom: 1em;
+}
+#sub-nick > input {
+    font-size: 1.5em;
+    width: 100%;
+}
+main {
+    padding: 2em;
+    overflow: scroll;
+    box-sizing: border-box;
+}
+main.has-error {
+    font-size: 2.5em;
+    text-align: center;
+    color: darkred;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main:not(.has-error) a {
+    color: #ccc;
+}
+.card-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+}
+.card {
+    padding: 2em;
+    background-color: #444;
+}

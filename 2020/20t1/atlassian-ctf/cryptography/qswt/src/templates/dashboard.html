@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Querystring Web Tokens - QSWT</title>
+
+    <link rel="stylesheet" href="/static/bulma.min.css" />
+  </head>
+
+  <body>
+    <section class="hero is-info is-fullheight">
+      <div class="hero-body has-text-centered">
+        <div class="container">
+          <h1 class="title is-1">Dashboard</h1>
+          {% if flag is defined %}
+          <div class="notification is-danger">
+            Flag: {{flag}}
+          </div>
+          {% endif %}
+          <p>Logged in as {{username}}</p>
+          <br />
+          <a class="button is-primary is-large" href="/">
+            <strong>Back to home</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

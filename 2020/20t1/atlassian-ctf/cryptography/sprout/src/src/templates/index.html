@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Sprout</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='bulma.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='aesjs.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}" defer></script>
+    </head>
+    <body>
+        <main class="hero is-fullheight is-primary is-bold">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title main-title">Sprout</h1>
+                    <div class="subtitle">
+                        <p>Sprout is a brand new anonymous message sharing board. Simply post your message and share the key with your friends!
+                            We never store your keys and utilize the latest in military grade encryption, so you can be sure its 100% secure.</p>
+                        <p>Try out demo out below. We're so sure in our security model we've even posted some secret messages.</p>
+                    </div>
+                    <form action="/" method="POST" class="columns">
+                        <div></div>
+                        <div class="column is-2">
+                            <input type="text" name="name" placeholder="Name">
+                        </div>
+                        <div class="column is-9">
+                            <input type="text" name="content" placeholder="Message">
+                        </div>
+                        <div class="column is-1">
+                            <input type="submit" value="Go!">
+                        </div>
+                    </form>
+                    <div id="enckey" class="is-hidden">
+                        Success! Your key is <code id="key"></code>. Keep it in a safe place as we won't issue it again.
+                    </div>
+                    <h2 class="title">Messages</h2>
+                    <table id="messages" class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Message</th>
+                                <th>Time</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for post in posts %}
+                            <tr>
+                                <td>{{ post['name']  }}</td>
+                                <td>{{ post['content'] | b64encode }} </td>
+                                <td>{{ post['time'] }} </td>
+                                <td><a href="#" data-content="{{ post['content'] | b64encode }}">Decrypt</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

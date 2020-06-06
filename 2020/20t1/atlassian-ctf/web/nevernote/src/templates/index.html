@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nevernote</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/">nevernote</a>
+        <form class="form-inline" action="note">
+          <input class="form-control mr-sm-2" name="id" type="name" placeholder="Note">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go!</button>
+        </form>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger">{{message}}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <h1>New Note</h1>
+        <form method="POST" action="/new">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" name="title" />
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea name="content" class="form-control"></textarea>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="New Note" />
+        </form>
+    </div>
+</body>
+</html>

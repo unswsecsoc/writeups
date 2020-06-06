@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nevernote</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/">nevernote</a>
+        <form class="form-inline" action="note">
+          <input class="form-control mr-sm-2" name="id" type="name" value="{{ id }}" placeholder="Note">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go!</button>
+        </form>
+    </nav>
+
+    <div class="container">
+        <h1>{{ title }}</h1>
+
+        <div id="content">
+            {{ content }}
+        </div>
+    </div>
+</body>
+</html>
