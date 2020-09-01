@@ -1,0 +1,2 @@
+1. Convert the base 63 numbers into integers using the b64 alphabet (ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/) (e.g. BD = B * 63^1 + D * 63^0 = 1 * 63 + 4 * 1 = 67)
+2. Convert each number into the ASCII value it represents and you will get the flag
