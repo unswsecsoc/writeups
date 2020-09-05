@@ -1,0 +1,15 @@
+{% extends 'template.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<!-- FLAG{0_jUsT_ch3ck1ng_th3t_y0u_aR3_r3ading_th3_c0mM3ntS_PyEW_SHVNtE} -->
+<h1 class="title is-1">Login</h1>
+<form method="POST" action="/login">
+    <div class="field">
+        <input type="text" class="input" name="username" placeholder="Username" />
+    </div>
+    <div class="field">
+        <input type="password" class="input" name="password" placeholder="Password" />
+    </div>
+    <input type="submit" class="button is-success is-large" value="Log In" />
+</form>
+{% endblock %}

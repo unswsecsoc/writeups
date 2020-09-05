@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
+    integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
+    crossorigin="anonymous" />
+  <title>{% block title %}{% endblock %} - My First Portal</title>
+</head>
+
+<body>
+  <nav class="navbar is-info">
+    <div class="navbar-brand">
+      <a class="navbar-item">My First Portal</a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        {% block navbar %}
+        {% endblock %}
+      </div>
+      <div class="navbar-end">
+        <a class="navbar-item" href="/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="notification is-{{category}}">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

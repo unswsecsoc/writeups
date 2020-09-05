@@ -1,0 +1,15 @@
+{% extends 'template.html' %}
+{% block title %}Not Authorised{% endblock %}
+{% block navbar %}
+<a class="navbar-item is-active" href="/dashboard">Dashboard</a>
+<a class="navbar-item" href="/profile">Profile</a>
+{% if session.level == 'admin' %}
+<a class="navbar-item" href="/admin">Admin</a>
+{% else %}
+<!-- <a class="navbar-item" href="/admin">Admin</a> -->
+{% endif %}
+{% endblock %}
+{% block content %}
+<h1 class="title is-1">Not Allowed</h1>
+<p>Your account is not high enough.</p>
+{% endblock %}
