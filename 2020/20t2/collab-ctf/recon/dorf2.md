@@ -20,7 +20,7 @@ ceo of dorf here. i hope you've finished my last two tasks! uh, i forgot my gith
 <summary>spoiler</summary>
 
 ### Idea
-Looking for secrets in robots.txt, and inspecting page source
+Looking for information connected to social media profiles
 
 ### Walkthrough
 #### Intended solution
